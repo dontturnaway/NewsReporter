@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Report</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${title}"></h1>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Date</th>
+        <th>Name</th>
+        <th>Url</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${reportData}">
+        <td th:text="${row.getId()}"></td>
+        <td th:text="${row.getDate()}"></td>
+        <td th:text="${row.getName()}"></td>
+        <td th:text="${row.getURL()}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
