@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -35,17 +34,12 @@ public class NewsReportController {
 
     @GetMapping(BASE_URL + "/download")
     public String getReportFile(HttpServletRequest request, Model model) throws UnableToGenerateReportException {
-        String fileLink = null;
         try {
-            fileLink = generateReportService.getFileLink(request, model);
-        } catch (IOException e) {
+            String fileLink = generateReportService.getFileLink(request);
+            model.addAttribute("fileLink", fileLink);
+        } catch (UnableToGenerateReportException e) {
             throw new UnableToGenerateReportException();
         }
-        if (fileLink == null) {
-            throw new UnableToGenerateReportException();
-        };
-
-        model.addAttribute("fileLink", fileLink);
         return "report_download";
     }
 }

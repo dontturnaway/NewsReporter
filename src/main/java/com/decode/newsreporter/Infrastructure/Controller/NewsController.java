@@ -35,11 +35,7 @@ public class NewsController {
     public NewsDTO getNewsById(@PathVariable Long newsId) throws WrongNewsId {
         if (newsId == null)
             throw new WrongNewsId();
-        NewsDTO newsDTO =  newsService.getNewsById(newsId);
-        if (newsDTO == null) {
-            throw new WrongNewsId();
-        }
-        return newsDTO;
+        return newsService.getNewsById(newsId);
     }
 
     @PostMapping(value = BASE_NEWS_URL, consumes = APPLICATION_JSON_VALUE)
