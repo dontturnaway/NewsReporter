@@ -2,9 +2,8 @@ package com.decode.newsreporter.Infrastructure.Controller;
 
 import com.decode.newsreporter.Application.UseCase.Gateway.CanGetRemoteDataFromURLException;
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.CantParseNewsException;
-import com.decode.newsreporter.Domain.Service.ParsingStrategy.IncorrectUrlProvidedForParsing;
+import com.decode.newsreporter.Domain.Service.ParsingStrategy.WrongUrlProvided;
 import com.decode.newsreporter.Infrastructure.Controller.Exceptions.EmptyNewsIdProvided;
-import com.decode.newsreporter.Infrastructure.Controller.Exceptions.EmptyURLProvided;
 import com.decode.newsreporter.Infrastructure.Controller.Exceptions.WrongNewsId;
 import com.decode.newsreporter.Infrastructure.Service.UnableToGenerateReportException;
 import org.springframework.http.HttpStatus;
@@ -15,12 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 class GlobalControllerExceptionHandler {
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(EmptyURLProvided.class)
-    public ResponseEntity<String> handleEmptyURLProvided() {
-        return new ResponseEntity<>("Empty URL Provided", HttpStatus.BAD_REQUEST);
-    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(CanGetRemoteDataFromURLException.class)
@@ -35,7 +28,7 @@ class GlobalControllerExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(IncorrectUrlProvidedForParsing.class)
+    @ExceptionHandler(WrongUrlProvided.class)
     public ResponseEntity<String> handleIncorrectUrlProvidedForParsingException() {
         return new ResponseEntity<>("Incorrect URL provided for parsing", HttpStatus.BAD_REQUEST);
     }

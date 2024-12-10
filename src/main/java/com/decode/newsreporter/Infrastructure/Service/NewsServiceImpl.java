@@ -20,7 +20,7 @@ public class NewsServiceImpl implements NewsService {
         List <NewsDTO> newsListDTO = new ArrayList<>();
         newsList.forEach(news ->
                 newsListDTO.add(
-                    new NewsDTO(news.getId(), news.getDate(), news.getURL(), news.getName(), news.getBody()
+                    new NewsDTO(news.getId(), news.getDate(), news.getURL().getUrl(), news.getName(), news.getBody()
                     )));
         return newsListDTO;
     }
@@ -28,13 +28,13 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public NewsDTO getNewsById(Long id) {
         News news = newsRepository.getNewsById(id);
-        return new NewsDTO(news.getId(), news.getDate(), news.getURL(), news.getName(), news.getBody());
+        return new NewsDTO(news.getId(), news.getDate(), news.getURL().getUrl(), news.getName(), news.getBody());
     }
 
     @Override
     public NewsDTO save(News news) throws IllegalArgumentException {
         News savedNews = newsRepository.save(news);
-        return new NewsDTO(savedNews.getId(), savedNews.getDate(), savedNews.getURL(), savedNews.getName(), savedNews.getBody());
+        return new NewsDTO(savedNews.getId(), savedNews.getDate(), savedNews.getURL().getUrl(), savedNews.getName(), savedNews.getBody());
     }
 
 }

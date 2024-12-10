@@ -1,6 +1,7 @@
 package com.decode.newsreporter.Infrastructure.Repository.Gateway;
 import com.decode.newsreporter.Application.UseCase.Gateway.CanGetRemoteDataFromURLException;
 import com.decode.newsreporter.Application.UseCase.Gateway.NewsGatewayInterface;
+import com.decode.newsreporter.Domain.ValueObject.URL;
 import io.netty.handler.logging.LogLevel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -15,11 +16,12 @@ import reactor.netty.transport.logging.AdvancedByteBufFormat;
 public class NewsGateway implements NewsGatewayInterface {
 
     @Override
-    public String getNewsFromURL(String url) throws CanGetRemoteDataFromURLException {
+    public String getNewsFromURL(URL url) throws CanGetRemoteDataFromURLException {
 
+        String getUrl = url.getUrl();
         WebClient client = getWebClient();
 
-        String result = null;
+        String result;
         try {
             result = client
                     //Increase buffer for load large pages
@@ -29,11 +31,11 @@ public class NewsGateway implements NewsGatewayInterface {
                             .maxInMemorySize(16 * 1024 * 1024))
                     .build()
                     .get()
-                    .uri(url)
+                    .uri(getUrl)
                     .headers(httpHeaders -> {
                                 httpHeaders.set("Accept-Language", "en-US,en;q=0.5");
                                 httpHeaders.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
-                                httpHeaders.set("Referer", url); // Optional
+                                httpHeaders.set("Referer", getUrl); // Optional
                             }
                     )
                     .retrieve()

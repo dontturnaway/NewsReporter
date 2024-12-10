@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 public class ORMNewsConvertFactory {
 
     public NewsORM createORMNews(News news) {
-        return new NewsORM(news.getId(), news.getDate(), news.getURL(), news.getName(), news.getBody());
+        return new NewsORM(news.getId(), news.getDate(), news.getURL().getUrl(), news.getName(), news.getBody());
     }
 }

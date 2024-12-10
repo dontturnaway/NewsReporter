@@ -3,14 +3,10 @@ package com.decode.newsreporter.Infrastructure.Controller;
 import com.decode.newsreporter.Application.UseCase.Gateway.CanGetRemoteDataFromURLException;
 import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsRequest;
 import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsResponse;
-import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsUsecase;
-import com.decode.newsreporter.Domain.Entity.News;
-import com.decode.newsreporter.Domain.Repository.NewsRepositoryInterface;
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.CantParseNewsException;
-import com.decode.newsreporter.Domain.Service.ParsingStrategy.IncorrectUrlProvidedForParsing;
+import com.decode.newsreporter.Domain.Service.ParsingStrategy.WrongUrlProvided;
 import com.decode.newsreporter.Infrastructure.Command.SubmitNewsCommand;
 import com.decode.newsreporter.Infrastructure.Controller.Exceptions.EmptyNewsIdProvided;
-import com.decode.newsreporter.Infrastructure.Controller.Exceptions.EmptyURLProvided;
 import com.decode.newsreporter.Infrastructure.Controller.Exceptions.WrongNewsId;
 import com.decode.newsreporter.Infrastructure.Entity.NewsDTO;
 import com.decode.newsreporter.Infrastructure.Service.NewsServiceImpl;
@@ -50,11 +46,9 @@ public class NewsController {
     public SubmitNewsResponse postNews(@RequestBody SubmitNewsRequest submitNewsRequest) throws
                                                                         CantParseNewsException,
                                                                         CanGetRemoteDataFromURLException,
-                                                                        IncorrectUrlProvidedForParsing,
-                                                                        EmptyURLProvided {
-
+                                                                        WrongUrlProvided {
         if (submitNewsRequest.URL() ==null ||  submitNewsRequest.URL().isEmpty())
-            throw new EmptyURLProvided();
+            throw new WrongUrlProvided();
 
         return submitNewsCommand.execute(submitNewsRequest);
     }

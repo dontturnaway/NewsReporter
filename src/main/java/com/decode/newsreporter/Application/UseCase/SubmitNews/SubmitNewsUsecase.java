@@ -6,7 +6,8 @@ import com.decode.newsreporter.Domain.Factory.NewsFactoryInterface;
 import com.decode.newsreporter.Domain.Repository.NewsRepositoryInterface;
 import com.decode.newsreporter.Domain.Service.NewsParser;
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.CantParseNewsException;
-import com.decode.newsreporter.Domain.Service.ParsingStrategy.IncorrectUrlProvidedForParsing;
+import com.decode.newsreporter.Domain.Service.ParsingStrategy.WrongUrlProvided;
+import com.decode.newsreporter.Domain.ValueObject.URL;
 
 public class SubmitNewsUsecase {
 
@@ -29,9 +30,8 @@ public class SubmitNewsUsecase {
     public SubmitNewsResponse submitNews(SubmitNewsRequest submitNewsRequest) throws
                             CanGetRemoteDataFromURLException,
                             CantParseNewsException,
-                            IncorrectUrlProvidedForParsing {
-            String url = submitNewsRequest.URL();
-
+                            WrongUrlProvided {
+            URL url = new URL(submitNewsRequest.URL());
             String newsBody = newsGatewayInterface.getNewsFromURL(url);
             String parsedNewsName = newsParser.parseNews(url, newsBody);
             News news = newsFactoryInterface.createNews(parsedNewsName, url, newsBody);

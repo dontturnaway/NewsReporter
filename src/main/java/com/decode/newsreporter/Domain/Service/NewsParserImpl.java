@@ -1,6 +1,7 @@
 package com.decode.newsreporter.Domain.Service;
 
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.*;
+import com.decode.newsreporter.Domain.ValueObject.URL;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,15 +12,16 @@ public class NewsParserImpl implements NewsParser {
     private static final String PARSE_HTTP_REGEXP = "https?://(?:www\\.)?([\\w.-]+)";
 
     @Override
-    public String parseNews(String url, String body) throws CantParseNewsException, IncorrectUrlProvidedForParsing {
-        if (url == null || url.isEmpty()) {
-            throw new IncorrectUrlProvidedForParsing();
+    public String parseNews(URL url, String body) throws CantParseNewsException, WrongUrlProvided {
+        String urlToParse = url.getUrl();
+        if (urlToParse == null || urlToParse.isEmpty()) {
+            throw new WrongUrlProvided();
         }
-        this.setNewsStrategy(url);
+        this.setNewsStrategy(urlToParse);
         return strategy.parseNews(body);
     }
 
-    private void setNewsStrategy(String url) throws IncorrectUrlProvidedForParsing {
+    private void setNewsStrategy(String url) throws WrongUrlProvided {
         String clearUrl = getNewsSiteFromUrl(url);
         System.out.println("Applying strategy for: " + clearUrl);
         switch (clearUrl) {
@@ -42,14 +44,14 @@ public class NewsParserImpl implements NewsParser {
         }
     }
 
-    private String getNewsSiteFromUrl(String url) throws IncorrectUrlProvidedForParsing {
+    private String getNewsSiteFromUrl(String url) throws WrongUrlProvided {
         Pattern pattern = Pattern.compile(PARSE_HTTP_REGEXP);
         Matcher matcher = pattern.matcher(url);
 
         if (matcher.find()) {
             return matcher.group(1);
         } else {
-            throw new IncorrectUrlProvidedForParsing();
+            throw new WrongUrlProvided();
         }
     }
 

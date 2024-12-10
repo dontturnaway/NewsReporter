@@ -1,15 +1,16 @@
 package com.decode.newsreporter.Domain.Entity;
+import com.decode.newsreporter.Domain.ValueObject.URL;
 
 import java.util.Date;
 
 public class News {
     private Long id;
-    private Date date;
-    private String URL;
-    private String name;
-    private String body;
+    private final Date date;
+    private final URL URL;
+    private final String name;
+    private final String body;
 
-    public News(Long id, String URL, String name, String body) throws IllegalArgumentException {
+    public News(Long id, URL URL, String name, String body) throws IllegalArgumentException {
         this.id = id;
         this.date = new Date();
         this.URL = URL;
@@ -17,7 +18,7 @@ public class News {
         this.body = body;
     }
 
-    public News(String name, String URL, String body) throws IllegalArgumentException {
+    public News(String name, URL URL, String body) throws IllegalArgumentException {
         this.date = new Date();
         this.URL = URL;
         this.name = name;
@@ -32,7 +33,7 @@ public class News {
         return date;
     }
 
-    public String getURL() {
+    public URL getURL() {
         return URL;
     }
 

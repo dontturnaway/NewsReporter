@@ -1,14 +1,16 @@
 package com.decode.newsreporter.Domain.ValueObject;
 
+import com.decode.newsreporter.Domain.Service.ParsingStrategy.WrongUrlProvided;
+
 import static java.util.regex.Pattern.matches;
 
 public final class URL {
 
-    private String url;
+    private final String url;
 
-    public URL(String url) {
+    public URL(String url) throws WrongUrlProvided {
         if (!assertValidUrl(url)) {
-            throw new IllegalArgumentException("URL should start from \"http\"");
+            throw new WrongUrlProvided();
         }
         this.url = url;
     }

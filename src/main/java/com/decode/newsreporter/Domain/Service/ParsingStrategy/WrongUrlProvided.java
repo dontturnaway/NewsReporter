@@ -1,4 +1,4 @@
 package com.decode.newsreporter.Domain.Service.ParsingStrategy;
 
-public class IncorrectUrlProvidedForParsing extends Exception{
+public class WrongUrlProvided extends Exception{
 }
