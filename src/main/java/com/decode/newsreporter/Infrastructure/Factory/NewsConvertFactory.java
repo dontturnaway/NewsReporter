@@ -1,6 +1,5 @@
 package com.decode.newsreporter.Infrastructure.Factory;
 
-
 import com.decode.newsreporter.Domain.Entity.News;
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.WrongUrlProvided;
 import com.decode.newsreporter.Domain.ValueObject.URL;
@@ -14,7 +13,7 @@ public class NewsConvertFactory {
         try {
             return new News(newsORM.getId(), new URL(newsORM.getURL()), newsORM.getName(), newsORM.getBody());
         } catch (WrongUrlProvided e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to deserialize News object from DB");
         }
     }
 

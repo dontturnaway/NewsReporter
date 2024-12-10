@@ -1,11 +1,12 @@
 package com.decode.newsreporter.Infrastructure.Service;
 
 import com.decode.newsreporter.Domain.Entity.News;
+import com.decode.newsreporter.Infrastructure.Controller.Exceptions.WrongNewsId;
 import com.decode.newsreporter.Infrastructure.Entity.NewsDTO;
 import java.util.List;
 
 public interface NewsService {
-    public List<NewsDTO> getAllNews();
-    public NewsDTO getNewsById(Long id);
-    public NewsDTO save(News news);
+    List<NewsDTO> getAllNews();
+    NewsDTO getNewsById(Long id) throws WrongNewsId;
+    NewsDTO save(News news) throws IllegalArgumentException;
 }

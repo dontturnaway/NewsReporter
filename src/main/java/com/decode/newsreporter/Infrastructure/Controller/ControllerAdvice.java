@@ -3,7 +3,6 @@ package com.decode.newsreporter.Infrastructure.Controller;
 import com.decode.newsreporter.Application.UseCase.Gateway.CanGetRemoteDataFromURLException;
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.CantParseNewsException;
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.WrongUrlProvided;
-import com.decode.newsreporter.Infrastructure.Controller.Exceptions.EmptyNewsIdProvided;
 import com.decode.newsreporter.Infrastructure.Controller.Exceptions.WrongNewsId;
 import com.decode.newsreporter.Infrastructure.Service.UnableToGenerateReportException;
 import org.springframework.http.HttpStatus;
@@ -34,15 +33,9 @@ class GlobalControllerExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(EmptyNewsIdProvided.class)
-    public ResponseEntity<String> handleEmptyNewsIdProvidedException() {
-        return new ResponseEntity<>("Empty news ID provided", HttpStatus.BAD_REQUEST);
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(WrongNewsId.class)
     public ResponseEntity<String> handleWrongNewsIdException() {
-        return new ResponseEntity<>("WrongNewsId", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Wrong news id provided", HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

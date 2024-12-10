@@ -2,6 +2,7 @@ package com.decode.newsreporter.Infrastructure.Repository;
 
 import com.decode.newsreporter.Domain.Entity.News;
 import com.decode.newsreporter.Domain.Repository.NewsRepositoryInterface;
+import com.decode.newsreporter.Infrastructure.Controller.Exceptions.WrongNewsId;
 import com.decode.newsreporter.Infrastructure.Entity.NewsORM;
 import com.decode.newsreporter.Infrastructure.Factory.NewsConvertFactory;
 import com.decode.newsreporter.Infrastructure.Factory.ORMNewsConvertFactory;
@@ -36,8 +37,8 @@ public class NewsRepositoryImpl implements NewsRepositoryInterface {
     }
 
     @Override
-    public News getNewsById(Long id) {
-        NewsORM news = newsRepositoryORM.findById(id).get();
+    public News getNewsById(Long id) throws WrongNewsId {
+        NewsORM news = newsRepositoryORM.findById(id).orElseThrow(WrongNewsId::new);
         return newsConvertFactory.createNews(news);
     }
 

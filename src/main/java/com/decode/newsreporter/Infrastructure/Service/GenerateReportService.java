@@ -1,9 +1,8 @@
 package com.decode.newsreporter.Infrastructure.Service;
 
 import com.decode.newsreporter.Domain.Entity.News;
-import com.decode.newsreporter.Infrastructure.Repository.NewsRepository;
+import com.decode.newsreporter.Domain.Repository.NewsRepositoryInterface;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.thymeleaf.TemplateEngine;
@@ -18,15 +17,15 @@ import java.util.List;
 @Service
 public class GenerateReportService {
 
-    private final NewsRepository newsRepository;
+    private final NewsRepositoryInterface newsRepository;
     private final TemplateEngine templateEngine;
 
-    public GenerateReportService(NewsRepository newsRepository, TemplateEngine templateEngine) {
+    public GenerateReportService(NewsRepositoryInterface newsRepository, TemplateEngine templateEngine) {
         this.newsRepository = newsRepository;
         this.templateEngine = templateEngine;
     }
 
-    public String getFileLink(HttpServletRequest request, Model model) throws IOException {
+    public String getFileLink(HttpServletRequest request) throws IOException {
         // Define the path to save the HTML report
         String reportsDirectoryPath = "src/main/resources/static/reports";
         String fileName = "newsreport.html";

@@ -7,6 +7,11 @@ import static java.util.regex.Pattern.matches;
 public final class URL {
 
     private final String url;
+    private static final String VALID_URL_REGEX = "((http|https)://)(www.)?"
+            + "[a-zA-Z0-9@:%._\\+~#?&//=]"
+            + "{2,256}\\.[a-z]"
+            + "{2,6}\\b([-a-zA-Z0-9@:%"
+            + "._\\+~#?&//=]*)";
 
     public URL(String url) throws WrongUrlProvided {
         if (!assertValidUrl(url)) {
@@ -16,7 +21,7 @@ public final class URL {
     }
 
     private boolean assertValidUrl(String url) {
-        return matches("^http", url);
+        return matches(VALID_URL_REGEX, url);
     }
 
     public String getUrl() {

@@ -6,9 +6,9 @@ import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsResponse
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.CantParseNewsException;
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.WrongUrlProvided;
 import com.decode.newsreporter.Infrastructure.Command.SubmitNewsCommand;
-import com.decode.newsreporter.Infrastructure.Controller.Exceptions.EmptyNewsIdProvided;
 import com.decode.newsreporter.Infrastructure.Controller.Exceptions.WrongNewsId;
 import com.decode.newsreporter.Infrastructure.Entity.NewsDTO;
+import com.decode.newsreporter.Infrastructure.Service.NewsService;
 import com.decode.newsreporter.Infrastructure.Service.NewsServiceImpl;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -17,7 +17,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 public class NewsController {
 
-    private final NewsServiceImpl newsService;
+    private final NewsService newsService;
     private final SubmitNewsCommand submitNewsCommand;
     private static final String BASE_NEWS_URL="/api/v1/news";
 
@@ -32,9 +32,9 @@ public class NewsController {
     }
 
     @GetMapping(value=BASE_NEWS_URL + "/{newsId}", produces = APPLICATION_JSON_VALUE)
-    public NewsDTO getNewsById(@PathVariable Long newsId) throws EmptyNewsIdProvided {
+    public NewsDTO getNewsById(@PathVariable Long newsId) throws WrongNewsId {
         if (newsId == null)
-            throw new EmptyNewsIdProvided();
+            throw new WrongNewsId();
         NewsDTO newsDTO =  newsService.getNewsById(newsId);
         if (newsDTO == null) {
             throw new WrongNewsId();
