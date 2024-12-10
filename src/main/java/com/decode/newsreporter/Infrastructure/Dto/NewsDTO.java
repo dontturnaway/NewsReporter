@@ -1,4 +1,4 @@
-package com.decode.newsreporter.Infrastructure.Entity;
+package com.decode.newsreporter.Infrastructure.Dto;
 
 import java.util.Date;
 

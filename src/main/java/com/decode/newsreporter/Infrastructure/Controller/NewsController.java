@@ -7,7 +7,7 @@ import com.decode.newsreporter.Domain.Service.ParsingStrategy.CantParseNewsExcep
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.WrongUrlProvided;
 import com.decode.newsreporter.Infrastructure.Command.SubmitNewsCommand;
 import com.decode.newsreporter.Infrastructure.Controller.Exceptions.WrongNewsId;
-import com.decode.newsreporter.Infrastructure.Entity.NewsDTO;
+import com.decode.newsreporter.Infrastructure.Dto.NewsDTO;
 import com.decode.newsreporter.Infrastructure.Service.NewsService;
 import com.decode.newsreporter.Infrastructure.Service.NewsServiceImpl;
 import org.springframework.web.bind.annotation.*;

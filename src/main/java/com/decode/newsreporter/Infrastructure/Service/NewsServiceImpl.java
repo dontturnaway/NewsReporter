@@ -3,7 +3,7 @@ package com.decode.newsreporter.Infrastructure.Service;
 import com.decode.newsreporter.Domain.Entity.News;
 import com.decode.newsreporter.Domain.Repository.NewsRepositoryInterface;
 import com.decode.newsreporter.Infrastructure.Controller.Exceptions.WrongNewsId;
-import com.decode.newsreporter.Infrastructure.Entity.NewsDTO;
+import com.decode.newsreporter.Infrastructure.Dto.NewsDTO;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
