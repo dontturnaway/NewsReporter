@@ -1,5 +1,7 @@
 package com.decode.newsreporter.Domain.Service.ParsingStrategy;
 
+import com.decode.newsreporter.Domain.Service.ParsedPageBodyDTO;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,6 +13,7 @@ public class AbstractNewsStrategy {
         this.regexp = regexp;
     }
 
+    //Get and Return DTO
     public String parseNews(String pageBody) throws CantParseNewsException {
 
         String regexp = this.regexp;

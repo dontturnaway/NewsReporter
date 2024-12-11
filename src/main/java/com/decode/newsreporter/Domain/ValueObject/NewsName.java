@@ -1,19 +1,17 @@
 package com.decode.newsreporter.Domain.ValueObject;
-
+import lombok.Value;
 import static java.util.regex.Pattern.matches;
 
-public final class Name {
+@Value
+public class NewsName {
 
-    private String name;
+    String name;
 
-    public Name(String name) {
+    public NewsName(String name) {
         if (!assertValidName(name)) {
             throw new IllegalArgumentException("Name should contain at least 3 letter");
         }
-    }
-
-    public String getName() {
-        return name;
+        this.name = name;
     }
 
     private boolean assertValidName(String name) {

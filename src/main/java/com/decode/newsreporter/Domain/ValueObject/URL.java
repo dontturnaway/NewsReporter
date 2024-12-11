@@ -1,13 +1,15 @@
 package com.decode.newsreporter.Domain.ValueObject;
-
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.WrongUrlProvided;
+import lombok.Value;
 
-import static java.util.regex.Pattern.matches;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public final class URL {
+@Value
+public class URL {
 
-    private final String url;
-    private static final String VALID_URL_REGEX = "((http|https)://)(www.)?"
+    String url;
+    private static final String VALID_URL_REGEX_PATTERN = "((http|https)://)(www.)?"
             + "[a-zA-Z0-9@:%._\\+~#?&//=]"
             + "{2,256}\\.[a-z]"
             + "{2,6}\\b([-a-zA-Z0-9@:%"
@@ -21,11 +23,8 @@ public final class URL {
     }
 
     private boolean assertValidUrl(String url) {
-        return matches(VALID_URL_REGEX, url);
+        Pattern pattern = Pattern.compile(VALID_URL_REGEX_PATTERN);
+        Matcher matcher = pattern.matcher(url);
+        return matcher.matches();
     }
-
-    public String getUrl() {
-        return url;
-    }
-
 }

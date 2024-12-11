@@ -1,7 +1,5 @@
 package com.decode.newsreporter.Domain.Service;
-
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.*;
-import com.decode.newsreporter.Domain.ValueObject.URL;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,13 +10,14 @@ public class NewsParserImpl implements NewsParser {
     private static final String PARSE_HTTP_REGEXP = "https?://(?:www\\.)?([\\w.-]+)";
 
     @Override
-    public String parseNews(URL url, String body) throws CantParseNewsException, WrongUrlProvided {
-        String urlToParse = url.getUrl();
+    public NewsParserResponseDTO parseNews(NewsParserRequestDTO newsParserRequestDTO) throws CantParseNewsException, WrongUrlProvided {
+        String urlToParse = newsParserRequestDTO.url();
         if (urlToParse == null || urlToParse.isEmpty()) {
             throw new WrongUrlProvided();
         }
         this.setNewsStrategy(urlToParse);
-        return strategy.parseNews(body);
+        String parsedNews = strategy.parseNews(newsParserRequestDTO.body());
+        return new NewsParserResponseDTO(parsedNews);
     }
 
     private void setNewsStrategy(String url) throws WrongUrlProvided {

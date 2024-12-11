@@ -1,6 +1,6 @@
 package com.decode.newsreporter.Infrastructure.Controller;
 import com.decode.newsreporter.Domain.Entity.News;
-import com.decode.newsreporter.Domain.Repository.NewsRepositoryInterface;
+import com.decode.newsreporter.Domain.Repository.NewsRepository;
 import com.decode.newsreporter.Infrastructure.Service.GenerateReportService;
 import com.decode.newsreporter.Infrastructure.Service.UnableToGenerateReportException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,12 +14,12 @@ import java.util.List;
 @Controller
 public class NewsReportController {
 
-    private final NewsRepositoryInterface newsRepository;
+    private final NewsRepository newsRepository;
     private final GenerateReportService generateReportService;
     private static final String BASE_URL="/api/v1/news/report";
     private static final String PAGE_TITLE="News Report";
 
-    public NewsReportController(NewsRepositoryInterface newsRepository, GenerateReportService generateReportService) {
+    public NewsReportController(NewsRepository newsRepository, GenerateReportService generateReportService) {
         this.newsRepository = newsRepository;
         this.generateReportService = generateReportService;
     }

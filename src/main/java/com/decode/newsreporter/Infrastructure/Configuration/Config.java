@@ -1,26 +1,27 @@
 package com.decode.newsreporter.Infrastructure.Configuration;
+import com.decode.newsreporter.Application.UseCase.Gateway.NewsGateway;
 import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsUsecase;
-import com.decode.newsreporter.Domain.Repository.NewsRepositoryInterface;
+import com.decode.newsreporter.Domain.Repository.NewsRepository;
 import com.decode.newsreporter.Domain.Service.NewsParserImpl;
-import com.decode.newsreporter.Infrastructure.Factory.NewsFactory;
-import com.decode.newsreporter.Infrastructure.Repository.Gateway.NewsGateway;
+import com.decode.newsreporter.Domain.Service.NewsService;
+import com.decode.newsreporter.Infrastructure.Factory.NewsFactoryImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class Config {
     @Bean
-    public SubmitNewsUsecase getSubmitNewsUsecaseInstance(NewsFactory newsFactory, NewsRepositoryInterface newsRepository, NewsGateway newsGateway) {
+    public SubmitNewsUsecase getSubmitNewsUsecaseInstance(NewsFactoryImpl newsFactoryImpl, NewsService newsService, NewsGateway newsGateway) {
         return new SubmitNewsUsecase(
-                newsFactory,
-                newsRepository,
+                newsFactoryImpl,
+                newsService,
                 newsGateway,
-                getNewsParserInstance(newsFactory)
+                getNewsParserInstance(newsFactoryImpl)
         );
     }
 
     @Bean
-    NewsParserImpl getNewsParserInstance(NewsFactory newsFactory) {
+    NewsParserImpl getNewsParserInstance(NewsFactoryImpl newsFactoryImpl) {
         return new NewsParserImpl();
     }
 }

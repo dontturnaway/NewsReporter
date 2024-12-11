@@ -1,7 +1,7 @@
 package com.decode.newsreporter.Infrastructure.Repository;
 
 import com.decode.newsreporter.Domain.Entity.News;
-import com.decode.newsreporter.Domain.Repository.NewsRepositoryInterface;
+import com.decode.newsreporter.Domain.Repository.NewsRepository;
 import com.decode.newsreporter.Infrastructure.Controller.Exceptions.WrongNewsId;
 import com.decode.newsreporter.Infrastructure.Entity.NewsORM;
 import com.decode.newsreporter.Infrastructure.Factory.NewsConvertFactory;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class NewsRepositoryImpl implements NewsRepositoryInterface {
+public class NewsRepositoryImpl implements NewsRepository {
 
     private final NewsRepositoryORM newsRepositoryORM;
     private final NewsConvertFactory newsConvertFactory;
@@ -43,7 +43,7 @@ public class NewsRepositoryImpl implements NewsRepositoryInterface {
     }
 
     @Override
-    public News save(News news) throws IllegalArgumentException {
+    public News save(News news) {
         NewsORM newsConverted = ormNewsConvertFactory.createORMNews(news);
         NewsORM savedItem = newsRepositoryORM.save(newsConverted);
         return newsConvertFactory.createNews(savedItem);

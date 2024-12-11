@@ -5,8 +5,8 @@ import com.decode.newsreporter.Infrastructure.Controller.Exceptions.WrongNewsId;
 
 import java.util.List;
 
-public interface NewsRepositoryInterface {
+public interface NewsRepository {
     List<News> getAllNews();
-    News getNewsById(Long id) throws WrongNewsId;
-    News save(News news) throws IllegalArgumentException;
+    News getNewsById(Long id);
+    News save(News news);
 }

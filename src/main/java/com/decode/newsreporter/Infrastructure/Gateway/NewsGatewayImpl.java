@@ -1,6 +1,7 @@
-package com.decode.newsreporter.Infrastructure.Repository.Gateway;
+package com.decode.newsreporter.Infrastructure.Gateway;
 import com.decode.newsreporter.Application.UseCase.Gateway.CanGetRemoteDataFromURLException;
-import com.decode.newsreporter.Application.UseCase.Gateway.NewsGatewayInterface;
+import com.decode.newsreporter.Application.UseCase.Gateway.NewsGatewayRequestDTO;
+import com.decode.newsreporter.Application.UseCase.Gateway.NewsGatewayResponseDTO;
 import com.decode.newsreporter.Domain.ValueObject.URL;
 import io.netty.handler.logging.LogLevel;
 import lombok.extern.slf4j.Slf4j;
@@ -10,15 +11,16 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.transport.logging.AdvancedByteBufFormat;
+import com.decode.newsreporter.Application.UseCase.Gateway.NewsGateway;
 
 @Component
 @Slf4j
-public class NewsGateway implements NewsGatewayInterface {
+public class NewsGatewayImpl implements NewsGateway {
 
     @Override
-    public String getNewsFromURL(URL url) throws CanGetRemoteDataFromURLException {
+    public NewsGatewayResponseDTO getNewsFromURL(NewsGatewayRequestDTO newsGatewayRequestDTO) throws CanGetRemoteDataFromURLException {
 
-        String getUrl = url.getUrl();
+        String getUrl = newsGatewayRequestDTO.URL().getUrl();
         WebClient client = getWebClient();
 
         String result;
@@ -51,7 +53,7 @@ public class NewsGateway implements NewsGatewayInterface {
             log.error("Unable to finish web request with general exception:  {}", e.getMessage());
             throw new CanGetRemoteDataFromURLException();
         }
-    return result;
+    return new NewsGatewayResponseDTO(result);
     }
 
     private static WebClient getWebClient() {

@@ -1,14 +1,13 @@
 package com.decode.newsreporter.Infrastructure.Controller;
 
 import com.decode.newsreporter.Application.UseCase.Gateway.CanGetRemoteDataFromURLException;
-import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsRequest;
-import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsResponse;
+import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsRequestDTO;
+import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsResponseDTO;
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.CantParseNewsException;
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.WrongUrlProvided;
 import com.decode.newsreporter.Infrastructure.Command.SubmitNewsCommand;
 import com.decode.newsreporter.Infrastructure.Controller.Exceptions.WrongNewsId;
 import com.decode.newsreporter.Infrastructure.Dto.NewsDTO;
-import com.decode.newsreporter.Infrastructure.Service.NewsService;
 import com.decode.newsreporter.Infrastructure.Service.NewsServiceImpl;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -17,7 +16,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 public class NewsController {
 
-    private final NewsService newsService;
+    private final NewsServiceImpl newsService;
     private final SubmitNewsCommand submitNewsCommand;
     private static final String BASE_NEWS_URL="/api/v1/news";
 
@@ -39,13 +38,13 @@ public class NewsController {
     }
 
     @PostMapping(value = BASE_NEWS_URL, consumes = APPLICATION_JSON_VALUE)
-    public SubmitNewsResponse postNews(@RequestBody SubmitNewsRequest submitNewsRequest) throws
+    public SubmitNewsResponseDTO postNews(@RequestBody SubmitNewsRequestDTO submitNewsRequestDTO) throws
                                                                         CantParseNewsException,
                                                                         CanGetRemoteDataFromURLException,
                                                                         WrongUrlProvided {
-        if (submitNewsRequest.URL() ==null ||  submitNewsRequest.URL().isEmpty())
+        if (submitNewsRequestDTO.URL() ==null ||  submitNewsRequestDTO.URL().isEmpty())
             throw new WrongUrlProvided();
 
-        return submitNewsCommand.execute(submitNewsRequest);
+        return submitNewsCommand.execute(submitNewsRequestDTO);
     }
 }

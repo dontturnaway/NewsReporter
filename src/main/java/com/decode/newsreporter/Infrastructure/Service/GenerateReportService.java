@@ -1,7 +1,7 @@
 package com.decode.newsreporter.Infrastructure.Service;
 
 import com.decode.newsreporter.Domain.Entity.News;
-import com.decode.newsreporter.Domain.Repository.NewsRepositoryInterface;
+import com.decode.newsreporter.Domain.Repository.NewsRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,10 +17,10 @@ import java.util.List;
 @Service
 public class GenerateReportService {
 
-    private final NewsRepositoryInterface newsRepository;
+    private final NewsRepository newsRepository;
     private final TemplateEngine templateEngine;
 
-    public GenerateReportService(NewsRepositoryInterface newsRepository, TemplateEngine templateEngine) {
+    public GenerateReportService(NewsRepository newsRepository, TemplateEngine templateEngine) {
         this.newsRepository = newsRepository;
         this.templateEngine = templateEngine;
     }

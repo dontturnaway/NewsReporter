@@ -2,8 +2,8 @@ package com.decode.newsreporter.Infrastructure.Command;
 
 
 import com.decode.newsreporter.Application.UseCase.Gateway.CanGetRemoteDataFromURLException;
-import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsRequest;
-import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsResponse;
+import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsRequestDTO;
+import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsResponseDTO;
 import com.decode.newsreporter.Application.UseCase.SubmitNews.SubmitNewsUsecase;
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.CantParseNewsException;
 import com.decode.newsreporter.Domain.Service.ParsingStrategy.WrongUrlProvided;
@@ -21,7 +21,7 @@ public class SubmitNewsCommand {
         this.submitNewsUsecase = submitNewsUsecase;
     }
 
-    public SubmitNewsResponse execute(SubmitNewsRequest request) throws CanGetRemoteDataFromURLException,
+    public SubmitNewsResponseDTO execute(SubmitNewsRequestDTO request) throws CanGetRemoteDataFromURLException,
                                                                         CantParseNewsException,
                                                                         WrongUrlProvided {
         Objects.requireNonNull(request, "Request must not be null");

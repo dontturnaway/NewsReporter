@@ -1,3 +1,3 @@
 package com.decode.newsreporter.Application.UseCase.SubmitNews;
 
-public record SubmitNewsRequest (String URL) {}
+public record SubmitNewsRequestDTO(String URL) {}
