@@ -1,7 +1,7 @@
 package com.decode.newsreporter.infrastructure.gateway;
-import com.decode.newsreporter.application.usecase.gateway.CanGetRemoteDataFromURLException;
-import com.decode.newsreporter.application.usecase.gateway.NewsGatewayRequestDTO;
-import com.decode.newsreporter.application.usecase.gateway.NewsGatewayResponseDTO;
+import com.decode.newsreporter.application.gateway.CanGetRemoteDataFromURLException;
+import com.decode.newsreporter.application.gateway.NewsGatewayRequestDTO;
+import com.decode.newsreporter.application.gateway.NewsGatewayResponseDTO;
 import io.netty.handler.logging.LogLevel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -10,7 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.transport.logging.AdvancedByteBufFormat;
-import com.decode.newsreporter.application.usecase.gateway.NewsGateway;
+import com.decode.newsreporter.application.gateway.NewsGateway;
 
 @Component
 @Slf4j

@@ -1,6 +1,6 @@
 package com.decode.newsreporter.infrastructure.controller;
 
-import com.decode.newsreporter.application.usecase.gateway.CanGetRemoteDataFromURLException;
+import com.decode.newsreporter.application.gateway.CanGetRemoteDataFromURLException;
 import com.decode.newsreporter.domain.service.parsing_strategy.CantParseNewsException;
 import com.decode.newsreporter.domain.service.parsing_strategy.WrongUrlProvided;
 import com.decode.newsreporter.infrastructure.service.UnableToGenerateReportException;

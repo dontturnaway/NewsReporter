@@ -1,8 +1,8 @@
-package com.decode.newsreporter.application.usecase.submitNews;
-import com.decode.newsreporter.application.usecase.gateway.CanGetRemoteDataFromURLException;
-import com.decode.newsreporter.application.usecase.gateway.NewsGateway;
-import com.decode.newsreporter.application.usecase.gateway.NewsGatewayRequestDTO;
-import com.decode.newsreporter.application.usecase.gateway.NewsGatewayResponseDTO;
+package com.decode.newsreporter.application.usecase.submit_news;
+import com.decode.newsreporter.application.gateway.CanGetRemoteDataFromURLException;
+import com.decode.newsreporter.application.gateway.NewsGateway;
+import com.decode.newsreporter.application.gateway.NewsGatewayRequestDTO;
+import com.decode.newsreporter.application.gateway.NewsGatewayResponseDTO;
 import com.decode.newsreporter.domain.entity.News;
 import com.decode.newsreporter.domain.factory.NewsFactory;
 import com.decode.newsreporter.domain.service.NewsParser;
