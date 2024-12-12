@@ -1,7 +1,6 @@
 package com.decode.newsreporter.domain.repository;
 import com.decode.newsreporter.domain.entity.News;
 
-
 import java.util.List;
 
 public interface NewsRepository {
