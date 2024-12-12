@@ -1,0 +1,52 @@
+package com.decode.newsreporter.application.usecase.submitNews;
+import com.decode.newsreporter.application.usecase.gateway.CanGetRemoteDataFromURLException;
+import com.decode.newsreporter.application.usecase.gateway.NewsGateway;
+import com.decode.newsreporter.application.usecase.gateway.NewsGatewayRequestDTO;
+import com.decode.newsreporter.application.usecase.gateway.NewsGatewayResponseDTO;
+import com.decode.newsreporter.domain.entity.News;
+import com.decode.newsreporter.domain.factory.NewsFactory;
+import com.decode.newsreporter.domain.service.NewsParser;
+import com.decode.newsreporter.domain.service.NewsParserRequestDTO;
+import com.decode.newsreporter.domain.service.NewsService;
+import com.decode.newsreporter.domain.service.NewsParserResponseDTO;
+import com.decode.newsreporter.domain.service.parsing_strategy.CantParseNewsException;
+import com.decode.newsreporter.domain.service.parsing_strategy.WrongUrlProvided;
+import com.decode.newsreporter.domain.value_object.NewsName;
+import com.decode.newsreporter.domain.value_object.URL;
+import com.decode.newsreporter.infrastructure.dto.NewsDTO;
+
+public class SubmitNewsUsecase {
+
+    private final NewsFactory newsFactory;
+    private final NewsService newsService;
+    private final NewsGateway newsGateway;
+    private final NewsParser newsParser;
+
+    public SubmitNewsUsecase(NewsFactory newsFactory,
+                             NewsService newsService,
+                             NewsGateway newsGateway,
+                             NewsParser newsParser
+    ) {
+        this.newsFactory = newsFactory;
+        this.newsService = newsService;
+        this.newsGateway = newsGateway;
+        this.newsParser = newsParser;
+    }
+
+    public SubmitNewsResponseDTO submitNews(SubmitNewsRequestDTO submitNewsRequestDTO) throws
+                            CanGetRemoteDataFromURLException,
+                            CantParseNewsException,
+                            WrongUrlProvided {
+            URL url = new URL(submitNewsRequestDTO.URL());
+            NewsGatewayRequestDTO newsGatewayRequestDTO = new NewsGatewayRequestDTO(url);
+            NewsGatewayResponseDTO newsBodyResponse = newsGateway.getNewsFromURL(newsGatewayRequestDTO);
+            NewsParserRequestDTO newsParserRequestDTO = new NewsParserRequestDTO(url.getUrl(), newsBodyResponse.response());
+            NewsParserResponseDTO parsedNewsName = newsParser.parseNews(newsParserRequestDTO);
+
+            NewsName newsName = new NewsName(parsedNewsName.newsName());
+            News news = newsFactory.createNews(null, url, newsName, newsBodyResponse.response());
+            NewsDTO savedNews = newsService.save(news);
+
+            return new SubmitNewsResponseDTO(savedNews.id());
+    }
+}
