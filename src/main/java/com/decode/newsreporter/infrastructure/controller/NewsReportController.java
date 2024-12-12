@@ -1,6 +1,6 @@
 package com.decode.newsreporter.infrastructure.controller;
-import com.decode.newsreporter.domain.entity.News;
-import com.decode.newsreporter.domain.repository.NewsRepository;
+import com.decode.newsreporter.domain.service.NewsService;
+import com.decode.newsreporter.infrastructure.dto.NewsDTO;
 import com.decode.newsreporter.infrastructure.service.GenerateReportService;
 import com.decode.newsreporter.infrastructure.service.UnableToGenerateReportException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,19 +14,19 @@ import java.util.List;
 @Controller
 public class NewsReportController {
 
-    private final NewsRepository newsRepository;
+    private final NewsService newsService;
     private final GenerateReportService generateReportService;
     private static final String BASE_URL="/api/v1/news/report";
     private static final String PAGE_TITLE="News Report";
 
-    public NewsReportController(NewsRepository newsRepository, GenerateReportService generateReportService) {
-        this.newsRepository = newsRepository;
+    public NewsReportController(NewsService newsService, GenerateReportService generateReportService) {
+        this.newsService = newsService;
         this.generateReportService = generateReportService;
     }
 
     @GetMapping(BASE_URL)
     public String getNewsHtmlView(Model model) {
-        List<News> reportData = newsRepository.getAllNews();
+        List<NewsDTO> reportData = newsService.getAllNews();
         model.addAttribute("reportData", reportData);
         model.addAttribute("title", PAGE_TITLE);
         return "report";

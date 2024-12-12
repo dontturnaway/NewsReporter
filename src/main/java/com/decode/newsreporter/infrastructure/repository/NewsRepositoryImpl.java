@@ -2,7 +2,6 @@ package com.decode.newsreporter.infrastructure.repository;
 
 import com.decode.newsreporter.domain.entity.News;
 import com.decode.newsreporter.domain.repository.NewsRepository;
-import com.decode.newsreporter.infrastructure.controller.exceptions.WrongNewsId;
 import com.decode.newsreporter.infrastructure.entity.NewsORM;
 import com.decode.newsreporter.infrastructure.factory.NewsConvertFactory;
 import com.decode.newsreporter.infrastructure.factory.ORMNewsConvertFactory;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class NewsRepositoryImpl implements NewsRepository {
@@ -37,9 +37,10 @@ public class NewsRepositoryImpl implements NewsRepository {
     }
 
     @Override
-    public News getNewsById(Long id) throws WrongNewsId {
-        NewsORM news = newsRepositoryORM.findById(id).orElseThrow(WrongNewsId::new);
-        return newsConvertFactory.createNews(news);
+    public News getNewsById(Long id) {
+        Optional<NewsORM> news = newsRepositoryORM.findById(id);
+        NewsORM result = news.orElse(null);
+        return (result != null) ? newsConvertFactory.createNews(result) : null;
     }
 
     @Override

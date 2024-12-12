@@ -3,7 +3,7 @@ package com.decode.newsreporter.infrastructure.service;
 import com.decode.newsreporter.domain.entity.News;
 import com.decode.newsreporter.domain.repository.NewsRepository;
 import com.decode.newsreporter.domain.service.NewsService;
-import com.decode.newsreporter.infrastructure.controller.exceptions.WrongNewsId;
+import com.decode.newsreporter.infrastructure.controller.WrongNewsId;
 import com.decode.newsreporter.infrastructure.dto.NewsDTO;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -31,6 +31,9 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public NewsDTO getNewsById(Long id) throws WrongNewsId {
         News news = newsRepository.getNewsById(id);
+        if (news == null) {
+            throw new WrongNewsId();
+        }
         return new NewsDTO(news.getId(), news.getDate(), news.getURL().getUrl(), news.getNewsName().getName(), news.getBody());
     }
 
