@@ -29,11 +29,7 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     @Override
     public List<News> getAllNews() {
-        List <News> newsList = new ArrayList<>();
-        newsRepositoryORM.findAll().forEach(news ->
-                newsList.add(newsConvertFactory.createNews(news))
-        );
-        return newsList;
+        return newsConvertFactory.createNews(newsRepositoryORM.findAll());
     }
 
     @Override
@@ -41,6 +37,12 @@ public class NewsRepositoryImpl implements NewsRepository {
         Optional<NewsORM> news = newsRepositoryORM.findById(id);
         NewsORM result = news.orElse(null);
         return (result != null) ? newsConvertFactory.createNews(result) : null;
+    }
+
+    @Override
+    public List<News> getNewsByIds(List<Long> newsIds) {
+        List<NewsORM> newsORMList = newsRepositoryORM.findAllById(newsIds);
+        return newsConvertFactory.createNews(newsORMList);
     }
 
     @Override

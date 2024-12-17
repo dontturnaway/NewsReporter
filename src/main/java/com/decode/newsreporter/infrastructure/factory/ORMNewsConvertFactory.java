@@ -14,4 +14,6 @@ public class ORMNewsConvertFactory {
                             news.getNewsName().getName(),
                             news.getBody());
     }
+
+
 }

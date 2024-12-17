@@ -38,6 +38,19 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public List<NewsDTO> getNewsByIds(List<Long> ids) throws WrongNewsId {
+        List<News> newsList = newsRepository.getNewsByIds(ids);
+        if (newsList == null) {
+            throw new WrongNewsId();
+        }
+        List<NewsDTO> newsListDTOList = new ArrayList<>();
+        newsList.forEach(news->
+                newsListDTOList.add(new NewsDTO(news.getId(), news.getDate(), news.getURL().getUrl(), news.getNewsName().getName(), news.getBody()))
+        );
+        return newsListDTOList;
+    }
+
+    @Override
     public NewsDTO save(News news) throws IllegalArgumentException {
         News savedNews = newsRepository.save(news);
         return new NewsDTO(savedNews.getId(), savedNews.getDate(), savedNews.getURL().getUrl(), savedNews.getNewsName().getName(), savedNews.getBody());

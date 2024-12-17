@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface NewsService {
     List<NewsDTO> getAllNews();
+    List<NewsDTO> getNewsByIds(List<Long> ids) throws WrongNewsId;
     NewsDTO getNewsById(Long id) throws WrongNewsId;
     NewsDTO save(News news) ;
 }

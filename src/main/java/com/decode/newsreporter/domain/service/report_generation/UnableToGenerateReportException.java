@@ -1,4 +1,4 @@
-package com.decode.newsreporter.infrastructure.service;
+package com.decode.newsreporter.domain.service.report_generation;
 
 public class UnableToGenerateReportException extends Exception {
 }

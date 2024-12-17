@@ -1,14 +1,21 @@
 package com.decode.newsreporter.infrastructure.controller;
 
 import com.decode.newsreporter.application.gateway.CanGetRemoteDataFromURLException;
+import com.decode.newsreporter.application.usecase.getNewsReport.GenerateNewsReportUsecase;
+import com.decode.newsreporter.application.usecase.getNewsReport.GetNewsReportRequest;
+import com.decode.newsreporter.application.usecase.getNewsReport.GetNewsReportResponse;
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsRequestDTO;
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsResponseDTO;
-import com.decode.newsreporter.domain.service.parsing_strategy.CantParseNewsException;
-import com.decode.newsreporter.domain.service.parsing_strategy.WrongUrlProvided;
-import com.decode.newsreporter.infrastructure.command.SubmitNewsCommand;
+import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsUsecase;
+import com.decode.newsreporter.domain.service.news_parser.parsing_strategy.CantParseNewsException;
+import com.decode.newsreporter.domain.service.news_parser.parsing_strategy.WrongUrlProvided;
+import com.decode.newsreporter.domain.service.report_generation.UnableToGenerateReportException;
 import com.decode.newsreporter.infrastructure.dto.NewsDTO;
 import com.decode.newsreporter.infrastructure.service.NewsServiceImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -16,12 +23,15 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class NewsController {
 
     private final NewsServiceImpl newsService;
-    private final SubmitNewsCommand submitNewsCommand;
+    private final SubmitNewsUsecase submitNewsUsecase;
+    private final GenerateNewsReportUsecase generateNewsReportUsecase;
+
     private static final String BASE_NEWS_URL="/api/v1/news";
 
-    public NewsController(SubmitNewsCommand submitNewsCommand, NewsServiceImpl newsService) {
-        this.submitNewsCommand = submitNewsCommand;
+    public NewsController(NewsServiceImpl newsService, SubmitNewsUsecase submitNewsUsecase, GenerateNewsReportUsecase generateNewsReportUsecase) {
         this.newsService = newsService;
+        this.submitNewsUsecase = submitNewsUsecase;
+        this.generateNewsReportUsecase = generateNewsReportUsecase;
     }
 
     @GetMapping(value=BASE_NEWS_URL, produces = APPLICATION_JSON_VALUE)
@@ -44,6 +54,17 @@ public class NewsController {
         if (submitNewsRequestDTO.URL() ==null ||  submitNewsRequestDTO.URL().isEmpty())
             throw new WrongUrlProvided();
 
-        return submitNewsCommand.execute(submitNewsRequestDTO);
+        return submitNewsUsecase.submitNews(submitNewsRequestDTO);
+    }
+
+    @PostMapping(value = BASE_NEWS_URL + "/report", consumes = APPLICATION_JSON_VALUE)
+    public GetNewsReportResponse generateNewsReport(@RequestBody ArrayList<Long> ids, HttpServletRequest request) throws
+            WrongUrlProvided, WrongNewsId, UnableToGenerateReportException {
+        if (ids ==null || ids.isEmpty())
+            throw new WrongUrlProvided();
+
+        String requestUrl = request.getRequestURL().toString();
+        GetNewsReportRequest getNewsReportRequest = new GetNewsReportRequest(ids, requestUrl);
+        return generateNewsReportUsecase.getReport(getNewsReportRequest);
     }
 }

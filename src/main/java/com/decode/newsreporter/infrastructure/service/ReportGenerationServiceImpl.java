@@ -1,8 +1,11 @@
 package com.decode.newsreporter.infrastructure.service;
 
 import com.decode.newsreporter.domain.service.NewsService;
+import com.decode.newsreporter.domain.service.report_generation.ReportGenerationService;
+import com.decode.newsreporter.domain.service.report_generation.ReportLinkRequestDTO;
+import com.decode.newsreporter.domain.service.report_generation.ReportLinkResponseDTO;
+import com.decode.newsreporter.domain.service.report_generation.UnableToGenerateReportException;
 import com.decode.newsreporter.infrastructure.dto.NewsDTO;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -15,17 +18,20 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class GenerateReportService {
+public class ReportGenerationServiceImpl implements ReportGenerationService {
 
-    private final NewsService newsService;
     private final TemplateEngine templateEngine;
 
-    public GenerateReportService(NewsService newsService, TemplateEngine templateEngine) {
-        this.newsService = newsService;
+    public ReportGenerationServiceImpl(TemplateEngine templateEngine) {
         this.templateEngine = templateEngine;
     }
 
-    public String getFileLink(HttpServletRequest request) throws UnableToGenerateReportException {
+    @Override
+    public ReportLinkResponseDTO getFileLink(ReportLinkRequestDTO reportLinkRequestDTO) throws UnableToGenerateReportException {
+
+        List<NewsDTO> newsListReportData =  reportLinkRequestDTO.newsList();
+        String requestUrl = reportLinkRequestDTO.requestURL();
+
         // Define the path to save the HTML report
         String reportsDirectoryPath = "src/main/resources/static/reports";
         String fileName = "newsreport.html";
@@ -42,8 +48,7 @@ public class GenerateReportService {
 
         // Generate the HTML content
         Context context = new Context();
-        List<NewsDTO> reportData = newsService.getAllNews();
-        context.setVariable("reportData", reportData);
+        context.setVariable("reportData", newsListReportData);
         context.setVariable("title", "News Report");
         String htmlContent = templateEngine.process("report", context);
 
@@ -56,7 +61,8 @@ public class GenerateReportService {
         }
 
         // Construct the full URL for the report
-        String baseUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "");
-        return baseUrl + "/reports/" + fileName;
+        String fileLink = requestUrl + "/reports/" + fileName;
+        return new ReportLinkResponseDTO(fileLink);
     }
+
 }
