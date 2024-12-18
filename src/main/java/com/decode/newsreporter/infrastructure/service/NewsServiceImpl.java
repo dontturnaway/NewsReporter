@@ -38,8 +38,8 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<NewsDTO> getNewsByIds(List<Long> ids) throws WrongNewsId {
-        List<News> newsList = newsRepository.getNewsByIds(ids);
+    public List<NewsDTO> getNewsById(List<Long> ids) throws WrongNewsId {
+        List<News> newsList = newsRepository.getNewsById(ids);
         if (newsList == null) {
             throw new WrongNewsId();
         }

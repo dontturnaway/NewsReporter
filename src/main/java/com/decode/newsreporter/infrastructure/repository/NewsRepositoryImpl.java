@@ -40,7 +40,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     }
 
     @Override
-    public List<News> getNewsByIds(List<Long> newsIds) {
+    public List<News> getNewsById(List<Long> newsIds) {
         List<NewsORM> newsORMList = newsRepositoryORM.findAllById(newsIds);
         return newsConvertFactory.createNews(newsORMList);
     }

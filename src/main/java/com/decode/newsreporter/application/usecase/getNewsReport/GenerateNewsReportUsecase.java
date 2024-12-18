@@ -27,7 +27,7 @@ public class GenerateNewsReportUsecase {
     }
 
     public GetNewsReportResponse getReport(GetNewsReportRequest request) throws WrongNewsId, UnableToGenerateReportException {
-        List<NewsDTO> newsList = newsService.getNewsByIds(request.newsListIds());
+        List<NewsDTO> newsList = newsService.getNewsById(request.newsListIds());
         String requestUrl = request.requestUrl();
 
         ReportLinkRequestDTO reportLinkRequestDTO = new ReportLinkRequestDTO(newsList, requestUrl);

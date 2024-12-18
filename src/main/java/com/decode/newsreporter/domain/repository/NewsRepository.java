@@ -6,6 +6,6 @@ import java.util.List;
 public interface NewsRepository {
     List<News> getAllNews();
     News getNewsById(Long id);
-    List<News> getNewsByIds(List<Long> newsIds);
+    List<News> getNewsById(List<Long> newsIds);
     News save(News news);
 }
