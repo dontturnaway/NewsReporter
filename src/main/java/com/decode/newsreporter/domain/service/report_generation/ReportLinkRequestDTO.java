@@ -1,6 +1,6 @@
 package com.decode.newsreporter.domain.service.report_generation;
 
-import com.decode.newsreporter.infrastructure.dto.NewsDTO;
+import com.decode.newsreporter.infrastructure.entity.NewsDTO;
 
 import java.util.List;
 

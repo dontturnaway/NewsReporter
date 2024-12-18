@@ -4,7 +4,6 @@ import com.decode.newsreporter.domain.service.report_generation.ReportGeneration
 import com.decode.newsreporter.domain.service.report_generation.ReportLinkRequestDTO;
 import com.decode.newsreporter.domain.service.report_generation.ReportLinkResponseDTO;
 import com.decode.newsreporter.domain.service.report_generation.UnableToGenerateReportException;
-import com.decode.newsreporter.infrastructure.dto.NewsDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 @Slf4j
 @Service

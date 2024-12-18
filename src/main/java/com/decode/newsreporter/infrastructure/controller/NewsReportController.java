@@ -1,14 +1,6 @@
 package com.decode.newsreporter.infrastructure.controller;
-import com.decode.newsreporter.domain.service.NewsService;
-import com.decode.newsreporter.infrastructure.dto.NewsDTO;
-import com.decode.newsreporter.infrastructure.service.ReportGenerationServiceImpl;
-import com.decode.newsreporter.domain.service.report_generation.UnableToGenerateReportException;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @Slf4j
 @Controller

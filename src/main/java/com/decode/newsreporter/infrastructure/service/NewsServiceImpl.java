@@ -4,7 +4,7 @@ import com.decode.newsreporter.domain.entity.News;
 import com.decode.newsreporter.domain.repository.NewsRepository;
 import com.decode.newsreporter.domain.service.NewsService;
 import com.decode.newsreporter.infrastructure.controller.WrongNewsId;
-import com.decode.newsreporter.infrastructure.dto.NewsDTO;
+import com.decode.newsreporter.infrastructure.entity.NewsDTO;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;

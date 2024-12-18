@@ -9,7 +9,7 @@ import com.decode.newsreporter.domain.service.report_generation.ReportLinkReques
 import com.decode.newsreporter.domain.service.report_generation.ReportLinkResponseDTO;
 import com.decode.newsreporter.domain.service.report_generation.UnableToGenerateReportException;
 import com.decode.newsreporter.infrastructure.controller.WrongNewsId;
-import com.decode.newsreporter.infrastructure.dto.NewsDTO;
+import com.decode.newsreporter.infrastructure.entity.NewsDTO;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.decode.newsreporter.domain.service;
 
 import com.decode.newsreporter.domain.entity.News;
 import com.decode.newsreporter.infrastructure.controller.WrongNewsId;
-import com.decode.newsreporter.infrastructure.dto.NewsDTO;
+import com.decode.newsreporter.infrastructure.entity.NewsDTO;
 
 import java.util.List;
 

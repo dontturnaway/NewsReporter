@@ -19,7 +19,7 @@ import com.decode.newsreporter.domain.service.news_parser.parsing_strategy.CantP
 import com.decode.newsreporter.domain.service.news_parser.parsing_strategy.WrongUrlProvided;
 import com.decode.newsreporter.domain.value_object.NewsName;
 import com.decode.newsreporter.domain.value_object.URL;
-import com.decode.newsreporter.infrastructure.dto.NewsDTO;
+import com.decode.newsreporter.infrastructure.entity.NewsDTO;
 
 public class SubmitNewsUsecase {
 
