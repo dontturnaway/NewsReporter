@@ -13,8 +13,15 @@ import com.decode.newsreporter.domain.service.report_generation.UnableToGenerate
 import com.decode.newsreporter.infrastructure.dto.NewsDTO;
 import com.decode.newsreporter.infrastructure.service.NewsServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -66,6 +73,24 @@ public class NewsController {
         String requestUrl = request.getRequestURL().toString();
         GetNewsReportRequest getNewsReportRequest = new GetNewsReportRequest(ids, requestUrl);
         return generateNewsReportUsecase.getReport(getNewsReportRequest);
+    }
+
+    @GetMapping("/reports/{filename:.+}")
+    public ResponseEntity<Resource> getReport(@PathVariable String filename) {
+        try {
+            Path filePath = Paths.get("./files/reports").resolve(filename).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (resource.exists()) {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                        .body(resource);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (MalformedURLException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }
