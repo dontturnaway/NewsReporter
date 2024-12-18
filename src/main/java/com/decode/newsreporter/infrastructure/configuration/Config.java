@@ -1,12 +1,13 @@
 package com.decode.newsreporter.infrastructure.configuration;
 import com.decode.newsreporter.application.gateway.NewsGateway;
+import com.decode.newsreporter.application.service.application_parser.NewsParserService;
 import com.decode.newsreporter.application.usecase.get_all_news_list.GetAllNewsListUsecase;
 import com.decode.newsreporter.application.usecase.get_news_by_id.GetNewsByIDUsecase;
 import com.decode.newsreporter.application.usecase.get_news_report.GenerateNewsReportUsecase;
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsUsecase;
-import com.decode.newsreporter.domain.service.news_parser.NewsParserImpl;
+import com.decode.newsreporter.infrastructure.service.NewsParserServiceImpl;
 import com.decode.newsreporter.domain.service.NewsService;
-import com.decode.newsreporter.domain.service.report_generation.ReportGenerationService;
+import com.decode.newsreporter.application.service.report_generation.ReportGenerationService;
 import com.decode.newsreporter.infrastructure.factory.NewsFactoryImpl;
 import com.decode.newsreporter.infrastructure.service.NewsServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -16,12 +17,13 @@ import org.springframework.context.annotation.Configuration;
 public class Config {
 
     @Bean
-    public SubmitNewsUsecase getSubmitNewsUsecaseInstance(NewsFactoryImpl newsFactory, NewsService newsService, NewsGateway newsGateway) {
+    public SubmitNewsUsecase getSubmitNewsUsecaseInstance(NewsFactoryImpl newsFactory, NewsService newsService, NewsGateway newsGateway, NewsParserService newsParserService) {
         return new SubmitNewsUsecase(
                 newsFactory,
                 newsService,
                 newsGateway,
-                getNewsParserInstance(newsFactory)
+                newsParserService
+                //getNewsParserInstance(newsFactory)
         );
     }
 
@@ -40,10 +42,10 @@ public class Config {
         return new GetNewsByIDUsecase(newsServiceImpl);
     }
 
-    @Bean
-    NewsParserImpl getNewsParserInstance(NewsFactoryImpl newsFactory) {
-        return new NewsParserImpl();
-    }
+//    @Bean
+//    NewsParserServiceImpl getNewsParserInstance(NewsFactoryImpl newsFactory) {
+//        return new NewsParserServiceImpl();
+//    }
 
 
 }

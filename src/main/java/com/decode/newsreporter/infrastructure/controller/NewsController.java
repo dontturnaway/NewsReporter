@@ -10,9 +10,9 @@ import com.decode.newsreporter.application.usecase.get_news_report.GetNewsReport
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsRequestDTO;
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsResponseDTO;
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsUsecase;
-import com.decode.newsreporter.domain.service.news_parser.parsing_strategy.CantParseNewsException;
-import com.decode.newsreporter.domain.service.news_parser.parsing_strategy.WrongUrlProvided;
-import com.decode.newsreporter.domain.service.report_generation.UnableToGenerateReportException;
+import com.decode.newsreporter.infrastructure.service.news_parser.parsing_strategy.CantParseNewsException;
+import com.decode.newsreporter.infrastructure.service.WrongUrlProvided;
+import com.decode.newsreporter.application.service.report_generation.UnableToGenerateReportException;
 import com.decode.newsreporter.infrastructure.entity.NewsDTO;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

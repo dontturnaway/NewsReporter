@@ -1,7 +1,7 @@
 package com.decode.newsreporter.infrastructure.factory;
 
 import com.decode.newsreporter.domain.entity.News;
-import com.decode.newsreporter.domain.service.news_parser.parsing_strategy.WrongUrlProvided;
+import com.decode.newsreporter.infrastructure.service.WrongUrlProvided;
 import com.decode.newsreporter.domain.value_object.NewsName;
 import com.decode.newsreporter.domain.value_object.URL;
 import com.decode.newsreporter.infrastructure.entity.NewsORM;

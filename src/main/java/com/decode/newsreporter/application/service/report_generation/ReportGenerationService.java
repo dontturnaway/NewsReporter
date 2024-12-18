@@ -1,4 +1,4 @@
-package com.decode.newsreporter.domain.service.report_generation;
+package com.decode.newsreporter.application.service.report_generation;
 
 public interface ReportGenerationService {
     public ReportLinkResponseDTO getGeneratedReportLink(ReportLinkRequestDTO reportLinkRequestDTO) throws UnableToGenerateReportException;

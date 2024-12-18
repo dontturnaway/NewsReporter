@@ -1,28 +1,25 @@
-package com.decode.newsreporter.domain.service.news_parser;
-import com.decode.newsreporter.domain.service.news_parser.parsing_strategy.*;
+package com.decode.newsreporter.infrastructure.factory;
+import com.decode.newsreporter.domain.factory.ParsingStrategyFactory;
+import com.decode.newsreporter.domain.value_object.URL;
+import com.decode.newsreporter.infrastructure.service.WrongUrlProvided;
+import com.decode.newsreporter.infrastructure.service.news_parser.parsing_strategy.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NewsParserImpl implements NewsParser {
+@Slf4j
+@Component
+public class ParsingStrategyFactoryImpl implements ParsingStrategyFactory {
 
-    private AbstractNewsStrategy strategy;
     private static final String PARSE_HTTP_REGEXP = "https?://(?:www\\.)?([\\w.-]+)";
 
-    @Override
-    public NewsParserResponseDTO parseNews(NewsParserRequestDTO newsParserRequestDTO) throws CantParseNewsException, WrongUrlProvided {
-        String urlToParse = newsParserRequestDTO.url();
-        if (urlToParse == null || urlToParse.isEmpty()) {
-            throw new WrongUrlProvided();
-        }
-        this.setNewsStrategy(urlToParse);
-        String parsedNews = strategy.parseNews(newsParserRequestDTO.body());
-        return new NewsParserResponseDTO(parsedNews);
-    }
+    public AbstractNewsStrategy getConcreteFactory(URL url) throws CantParseNewsException, WrongUrlProvided {
+        String clearUrl = extractSiteNameFromUrl(url.getUrl());
 
-    private void setNewsStrategy(String url) throws WrongUrlProvided {
-        String clearUrl = getNewsSiteFromUrl(url);
-        System.out.println("Applying strategy for: " + clearUrl);
+        AbstractNewsStrategy strategy = new GeneralNewsStrategy();
+        log.info("Applying strategy for: {}", clearUrl);
         switch (clearUrl) {
             case "iz.ru":
                 strategy = new IzRuNewsStrategy();
@@ -41,9 +38,10 @@ public class NewsParserImpl implements NewsParser {
             default:
                 strategy= new GeneralNewsStrategy();
         }
+        return strategy;
     }
 
-    private String getNewsSiteFromUrl(String url) throws WrongUrlProvided {
+    private String extractSiteNameFromUrl(String url) throws WrongUrlProvided {
         Pattern pattern = Pattern.compile(PARSE_HTTP_REGEXP);
         Matcher matcher = pattern.matcher(url);
 

@@ -1,4 +1,4 @@
-package com.decode.newsreporter.domain.service.news_parser.parsing_strategy;
+package com.decode.newsreporter.infrastructure.service.news_parser.parsing_strategy;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

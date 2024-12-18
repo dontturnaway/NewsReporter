@@ -1,5 +1,5 @@
 package com.decode.newsreporter.domain.value_object;
-import com.decode.newsreporter.domain.service.news_parser.parsing_strategy.WrongUrlProvided;
+import com.decode.newsreporter.infrastructure.service.WrongUrlProvided;
 import lombok.Value;
 
 import java.util.regex.Matcher;

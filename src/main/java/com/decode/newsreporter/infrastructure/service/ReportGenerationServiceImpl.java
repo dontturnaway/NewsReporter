@@ -1,9 +1,9 @@
 package com.decode.newsreporter.infrastructure.service;
 
-import com.decode.newsreporter.domain.service.report_generation.ReportGenerationService;
-import com.decode.newsreporter.domain.service.report_generation.ReportLinkRequestDTO;
-import com.decode.newsreporter.domain.service.report_generation.ReportLinkResponseDTO;
-import com.decode.newsreporter.domain.service.report_generation.UnableToGenerateReportException;
+import com.decode.newsreporter.application.service.report_generation.ReportGenerationService;
+import com.decode.newsreporter.application.service.report_generation.ReportLinkRequestDTO;
+import com.decode.newsreporter.application.service.report_generation.ReportLinkResponseDTO;
+import com.decode.newsreporter.application.service.report_generation.UnableToGenerateReportException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

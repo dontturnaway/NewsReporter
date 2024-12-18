@@ -11,12 +11,12 @@ import com.decode.newsreporter.application.gateway.NewsGatewayRequestDTO;
 import com.decode.newsreporter.application.gateway.NewsGatewayResponseDTO;
 import com.decode.newsreporter.domain.entity.News;
 import com.decode.newsreporter.domain.factory.NewsFactory;
-import com.decode.newsreporter.domain.service.news_parser.NewsParser;
-import com.decode.newsreporter.domain.service.news_parser.NewsParserRequestDTO;
+import com.decode.newsreporter.application.service.application_parser.NewsParserService;
+import com.decode.newsreporter.application.service.application_parser.NewsParserRequestDTO;
 import com.decode.newsreporter.domain.service.NewsService;
-import com.decode.newsreporter.domain.service.news_parser.NewsParserResponseDTO;
-import com.decode.newsreporter.domain.service.news_parser.parsing_strategy.CantParseNewsException;
-import com.decode.newsreporter.domain.service.news_parser.parsing_strategy.WrongUrlProvided;
+import com.decode.newsreporter.application.service.application_parser.NewsParserResponseDTO;
+import com.decode.newsreporter.infrastructure.service.news_parser.parsing_strategy.CantParseNewsException;
+import com.decode.newsreporter.infrastructure.service.WrongUrlProvided;
 import com.decode.newsreporter.domain.value_object.NewsName;
 import com.decode.newsreporter.domain.value_object.URL;
 import com.decode.newsreporter.infrastructure.entity.NewsDTO;
@@ -26,17 +26,17 @@ public class SubmitNewsUsecase {
     private final NewsFactory newsFactory;
     private final NewsService newsService;
     private final NewsGateway newsGateway;
-    private final NewsParser newsParser;
+    private final NewsParserService newsParserService;
 
     public SubmitNewsUsecase(NewsFactory newsFactory,
                              NewsService newsService,
                              NewsGateway newsGateway,
-                             NewsParser newsParser
+                             NewsParserService newsParserService
     ) {
         this.newsFactory = newsFactory;
         this.newsService = newsService;
         this.newsGateway = newsGateway;
-        this.newsParser = newsParser;
+        this.newsParserService = newsParserService;
     }
 
     public SubmitNewsResponseDTO submitNews(SubmitNewsRequestDTO submitNewsRequestDTO) throws
@@ -47,7 +47,7 @@ public class SubmitNewsUsecase {
             NewsGatewayRequestDTO newsGatewayRequestDTO = new NewsGatewayRequestDTO(url);
             NewsGatewayResponseDTO newsBodyResponse = newsGateway.getNewsFromURL(newsGatewayRequestDTO);
             NewsParserRequestDTO newsParserRequestDTO = new NewsParserRequestDTO(url.getUrl(), newsBodyResponse.response());
-            NewsParserResponseDTO parsedNewsName = newsParser.parseNews(newsParserRequestDTO);
+            NewsParserResponseDTO parsedNewsName = newsParserService.parseNews(newsParserRequestDTO);
 
             NewsName newsName = new NewsName(parsedNewsName.newsName());
             News news = newsFactory.createNews(null, url, newsName, newsBodyResponse.response());
