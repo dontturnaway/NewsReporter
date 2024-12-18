@@ -1,6 +1,7 @@
 package com.decode.newsreporter.infrastructure.configuration;
 import com.decode.newsreporter.application.gateway.NewsGateway;
-import com.decode.newsreporter.application.usecase.get_news_list.GetAllNewsListUsecase;
+import com.decode.newsreporter.application.usecase.get_all_news_list.GetAllNewsListUsecase;
+import com.decode.newsreporter.application.usecase.get_news_by_id.GetNewsByIDUsecase;
 import com.decode.newsreporter.application.usecase.get_news_report.GenerateNewsReportUsecase;
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsUsecase;
 import com.decode.newsreporter.domain.service.news_parser.NewsParserImpl;
@@ -32,6 +33,11 @@ public class Config {
     @Bean
     public GetAllNewsListUsecase getGetNewsListUsecaseInstance(NewsServiceImpl newsServiceImpl) {
         return new GetAllNewsListUsecase(newsServiceImpl);
+    }
+
+    @Bean
+    public GetNewsByIDUsecase getNewsByIDUsecase(NewsServiceImpl newsServiceImpl) {
+        return new GetNewsByIDUsecase(newsServiceImpl);
     }
 
     @Bean
