@@ -4,6 +4,7 @@ package com.decode.newsreporter.application.usecase.get_news_list;
 import com.decode.newsreporter.domain.service.NewsService;
 
 public class GetAllNewsListUsecase {
+
     private final NewsService newsService;
 
     public GetAllNewsListUsecase(NewsService newsService) {
