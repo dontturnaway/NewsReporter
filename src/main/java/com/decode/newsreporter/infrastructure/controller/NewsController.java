@@ -75,22 +75,4 @@ public class NewsController {
         return generateNewsReportUsecase.getReport(getNewsReportRequest);
     }
 
-    @GetMapping("/reports/{filename:.+}")
-    public ResponseEntity<Resource> getReport(@PathVariable String filename) {
-        try {
-            Path filePath = Paths.get("./files/reports").resolve(filename).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
-
-            if (resource.exists()) {
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                        .body(resource);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (MalformedURLException e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
 }

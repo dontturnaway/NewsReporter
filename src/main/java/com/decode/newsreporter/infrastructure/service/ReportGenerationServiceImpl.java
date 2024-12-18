@@ -35,7 +35,7 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
     }
 
     @Override
-    public ReportLinkResponseDTO getFileLink(ReportLinkRequestDTO reportLinkRequestDTO) throws UnableToGenerateReportException {
+    public ReportLinkResponseDTO getGeneratedReportLink(ReportLinkRequestDTO reportLinkRequestDTO) throws UnableToGenerateReportException {
 
         List<NewsDTO> newsListReportData = reportLinkRequestDTO.newsList();
 

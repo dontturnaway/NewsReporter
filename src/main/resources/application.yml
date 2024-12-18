@@ -9,12 +9,9 @@ spring:
 app:
   base:
     url: http://localhost:8080
-  reports:
-    dir: reports
-
-#  web:
-#    resources:
-#      static-locations: file:./files/
+  web:
+    resources:
+      static-locations: file:./files/
 #  mvc:
 #    log-request-details: true
 #logging:

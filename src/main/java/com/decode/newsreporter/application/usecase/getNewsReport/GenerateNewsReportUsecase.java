@@ -31,7 +31,7 @@ public class GenerateNewsReportUsecase {
         String requestUrl = request.requestUrl();
 
         ReportLinkRequestDTO reportLinkRequestDTO = new ReportLinkRequestDTO(newsList, requestUrl);
-        ReportLinkResponseDTO reportLinkResponseDTO = reportGenerationService.getFileLink(reportLinkRequestDTO);
+        ReportLinkResponseDTO reportLinkResponseDTO = reportGenerationService.getGeneratedReportLink(reportLinkRequestDTO);
 
         return new GetNewsReportResponse(reportLinkResponseDTO.responseURL());
     }
