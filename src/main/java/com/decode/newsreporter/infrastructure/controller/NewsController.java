@@ -58,7 +58,7 @@ public class NewsController {
     }
 
     @PostMapping(value = BASE_NEWS_URL + "/report", consumes = APPLICATION_JSON_VALUE)
-    public GetNewsReportResponse generateNewsReport(@RequestBody ArrayList<Long> ids, HttpServletRequest request) throws
+    public GetNewsReportResponse generateNewsReport(@RequestBody List<Long> ids, HttpServletRequest request) throws
             WrongUrlProvided, WrongNewsId, UnableToGenerateReportException {
         if (ids ==null || ids.isEmpty())
             throw new WrongUrlProvided();
@@ -67,4 +67,5 @@ public class NewsController {
         GetNewsReportRequest getNewsReportRequest = new GetNewsReportRequest(ids, requestUrl);
         return generateNewsReportUsecase.getReport(getNewsReportRequest);
     }
+
 }

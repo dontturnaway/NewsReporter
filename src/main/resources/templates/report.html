@@ -37,10 +37,10 @@
     </thead>
     <tbody>
     <tr th:each="row : ${reportData}">
-        <td th:text="${row.getId()}"></td>
-        <td th:text="${row.getDate()}"></td>
-        <td th:text="${row.getName()}"></td>
-        <td th:text="${row.getURL()}"></td>
+        <td th:text="${row.id}"></td>
+        <td th:text="${row.date}"></td>
+        <td th:text="${row.name}"></td>
+        <td th:text="${row.URL}"></td>
     </tr>
     </tbody>
 </table>
