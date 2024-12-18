@@ -3,7 +3,7 @@ package com.decode.newsreporter.infrastructure.service;
 import com.decode.newsreporter.domain.entity.News;
 import com.decode.newsreporter.domain.repository.NewsRepository;
 import com.decode.newsreporter.domain.service.NewsService;
-import com.decode.newsreporter.infrastructure.controller.WrongNewsId;
+import com.decode.newsreporter.infrastructure.controller.WrongNewsIdProvided;
 import com.decode.newsreporter.infrastructure.entity.NewsDTO;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -29,19 +29,19 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public NewsDTO getNewsById(Long id) throws WrongNewsId {
+    public NewsDTO getNewsById(Long id) throws WrongNewsIdProvided {
         News news = newsRepository.getNewsById(id);
         if (news == null) {
-            throw new WrongNewsId();
+            throw new WrongNewsIdProvided();
         }
         return new NewsDTO(news.getId(), news.getDate(), news.getURL().getUrl(), news.getNewsName().getName(), news.getBody());
     }
 
     @Override
-    public List<NewsDTO> getNewsById(List<Long> ids) throws WrongNewsId {
+    public List<NewsDTO> getNewsById(List<Long> ids) throws WrongNewsIdProvided {
         List<News> newsList = newsRepository.getNewsById(ids);
         if (newsList == null) {
-            throw new WrongNewsId();
+            throw new WrongNewsIdProvided();
         }
         List<NewsDTO> newsListDTOList = new ArrayList<>();
         newsList.forEach(news->

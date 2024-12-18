@@ -13,7 +13,6 @@ import com.decode.newsreporter.domain.service.news_parser.parsing_strategy.Wrong
 import com.decode.newsreporter.domain.service.report_generation.UnableToGenerateReportException;
 import com.decode.newsreporter.infrastructure.entity.NewsDTO;
 import com.decode.newsreporter.infrastructure.service.NewsServiceImpl;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -44,9 +43,9 @@ public class NewsController {
     }
 
     @GetMapping(value=BASE_NEWS_URL + "/{newsId}", produces = APPLICATION_JSON_VALUE)
-    public NewsDTO getNewsById(@PathVariable Long newsId) throws WrongNewsId {
+    public NewsDTO getNewsById(@PathVariable Long newsId) throws WrongNewsIdProvided {
         if (newsId == null)
-            throw new WrongNewsId();
+            throw new WrongNewsIdProvided();
         return newsService.getNewsById(newsId);
     }
 
@@ -62,13 +61,13 @@ public class NewsController {
     }
 
     @PostMapping(value = BASE_NEWS_URL + "/report", consumes = APPLICATION_JSON_VALUE)
-    public GetNewsReportResponse generateNewsReport(@RequestBody List<Long> ids, HttpServletRequest request) throws
-            WrongUrlProvided, WrongNewsId, UnableToGenerateReportException {
-        if (ids ==null || ids.isEmpty())
-            throw new WrongUrlProvided();
+    public GetNewsReportResponse generateNewsReport(@RequestBody GetNewsReportRequest getNewsReportRequest) throws
+                                            WrongNewsIdProvided,
+                                            UnableToGenerateReportException {
 
-        String requestUrl = request.getRequestURL().toString();
-        GetNewsReportRequest getNewsReportRequest = new GetNewsReportRequest(ids, requestUrl);
+        if (getNewsReportRequest ==null || getNewsReportRequest.newsListIds().isEmpty())
+            throw new WrongNewsIdProvided();
+
         return generateNewsReportUsecase.getReport(getNewsReportRequest);
     }
 

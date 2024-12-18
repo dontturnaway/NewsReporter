@@ -32,7 +32,7 @@ class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(WrongNewsId.class)
+    @ExceptionHandler(WrongNewsIdProvided.class)
     public ResponseEntity<String> handleWrongNewsIdException() {
         return new ResponseEntity<>("Wrong news id provided", HttpStatus.BAD_REQUEST);
     }
