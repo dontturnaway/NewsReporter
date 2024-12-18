@@ -6,12 +6,12 @@ spring:
     driverClassName: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-app:
-  base:
-    url: http://localhost:8080
   web:
     resources:
       static-locations: file:./files/
+app:
+  base:
+    url: http://localhost:8080
 #  mvc:
 #    log-request-details: true
 #logging:
