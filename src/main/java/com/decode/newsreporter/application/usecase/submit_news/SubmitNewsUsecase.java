@@ -1,3 +1,9 @@
+/* Сценарий 1. Добавление новости. В систему передаётся URL новостного материала в Интернете. Система скачивает HTML по этому URL и создаёт на его основе сущность со следующими полями:
+    - дата (текущая дата)
+    - URL (нам его передали в запросе)
+    - название новости (его проще всего взять из тега title)
+    В ответ возвращается ID сущности. */
+
 package com.decode.newsreporter.application.usecase.submit_news;
 import com.decode.newsreporter.application.gateway.CanGetRemoteDataFromURLException;
 import com.decode.newsreporter.application.gateway.NewsGateway;

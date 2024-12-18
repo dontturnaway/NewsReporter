@@ -1,11 +1,7 @@
+/* Сценарий 3. Формирование сводного отчёта. В систему передаётся массив из нескольких ID. Система формирует и сохраняет на диск простой HTML-файл со списком примерно такого вида:
+В ответ возвращается ссылка на этот файл. */
+
 package com.decode.newsreporter.application.usecase.get_news_report;
-
-/*
-
-Сценарий 3. Формирование сводного отчёта. В систему передаётся массив из нескольких ID. Система формирует и сохраняет на диск простой HTML-файл со списком примерно такого вида:
-В ответ возвращается ссылка на этот файл.
-
- */
 
 import com.decode.newsreporter.domain.service.NewsService;
 import com.decode.newsreporter.domain.service.report_generation.ReportGenerationService;

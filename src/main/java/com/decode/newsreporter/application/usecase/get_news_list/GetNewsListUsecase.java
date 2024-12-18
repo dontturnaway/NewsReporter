@@ -10,5 +10,19 @@ package com.decode.newsreporter.application.usecase.get_news_list;
 
  */
 
+import com.decode.newsreporter.domain.service.NewsService;
+import com.decode.newsreporter.infrastructure.dto.NewsDTO;
+
+import java.util.List;
+
 public class GetNewsListUsecase {
+    private final NewsService newsService;
+    public GetNewsListUsecase(NewsService newsService) {
+        this.newsService = newsService;
+    }
+
+    public List<NewsDTO> getNewsList() {
+        return newsService.getAllNews();
+    }
+
 }
