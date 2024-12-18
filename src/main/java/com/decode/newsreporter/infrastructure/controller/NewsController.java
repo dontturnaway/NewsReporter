@@ -1,9 +1,9 @@
 package com.decode.newsreporter.infrastructure.controller;
 
 import com.decode.newsreporter.application.gateway.CanGetRemoteDataFromURLException;
-import com.decode.newsreporter.application.usecase.getNewsReport.GenerateNewsReportUsecase;
-import com.decode.newsreporter.application.usecase.getNewsReport.GetNewsReportRequest;
-import com.decode.newsreporter.application.usecase.getNewsReport.GetNewsReportResponse;
+import com.decode.newsreporter.application.usecase.get_news_report.GenerateNewsReportUsecase;
+import com.decode.newsreporter.application.usecase.get_news_report.GetNewsReportRequest;
+import com.decode.newsreporter.application.usecase.get_news_report.GetNewsReportResponse;
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsRequestDTO;
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsResponseDTO;
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsUsecase;
@@ -13,16 +13,7 @@ import com.decode.newsreporter.domain.service.report_generation.UnableToGenerate
 import com.decode.newsreporter.infrastructure.dto.NewsDTO;
 import com.decode.newsreporter.infrastructure.service.NewsServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 

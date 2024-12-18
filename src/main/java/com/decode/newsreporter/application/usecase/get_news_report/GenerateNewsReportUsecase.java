@@ -1,4 +1,4 @@
-package com.decode.newsreporter.application.usecase.getNewsReport;
+package com.decode.newsreporter.application.usecase.get_news_report;
 
 /*
 
@@ -28,9 +28,7 @@ public class GenerateNewsReportUsecase {
 
     public GetNewsReportResponse getReport(GetNewsReportRequest request) throws WrongNewsId, UnableToGenerateReportException {
         List<NewsDTO> newsList = newsService.getNewsById(request.newsListIds());
-        String requestUrl = request.requestUrl();
-
-        ReportLinkRequestDTO reportLinkRequestDTO = new ReportLinkRequestDTO(newsList, requestUrl);
+        ReportLinkRequestDTO reportLinkRequestDTO = new ReportLinkRequestDTO(newsList);
         ReportLinkResponseDTO reportLinkResponseDTO = reportGenerationService.getGeneratedReportLink(reportLinkRequestDTO);
 
         return new GetNewsReportResponse(reportLinkResponseDTO.responseURL());

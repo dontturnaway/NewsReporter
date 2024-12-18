@@ -1,4 +1,4 @@
-package com.decode.newsreporter.application.usecase.getNewsReport;
+package com.decode.newsreporter.application.usecase.get_news_report;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.decode.newsreporter.infrastructure.configuration;
 import com.decode.newsreporter.application.gateway.NewsGateway;
-import com.decode.newsreporter.application.usecase.getNewsReport.GenerateNewsReportUsecase;
+import com.decode.newsreporter.application.usecase.get_news_report.GenerateNewsReportUsecase;
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsUsecase;
 import com.decode.newsreporter.domain.service.news_parser.NewsParserImpl;
 import com.decode.newsreporter.domain.service.NewsService;

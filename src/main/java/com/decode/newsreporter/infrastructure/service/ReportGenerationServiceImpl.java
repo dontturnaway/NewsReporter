@@ -37,11 +37,9 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
     @Override
     public ReportLinkResponseDTO getGeneratedReportLink(ReportLinkRequestDTO reportLinkRequestDTO) throws UnableToGenerateReportException {
 
-        List<NewsDTO> newsListReportData = reportLinkRequestDTO.newsList();
-
         // Generate the HTML content
         Context context = new Context();
-        context.setVariable("reportData", newsListReportData);
+        context.setVariable("reportData", reportLinkRequestDTO.newsList());
         context.setVariable("title", "News Report");
         String htmlContent = templateEngine.process("report", context);
 
