@@ -8,4 +8,5 @@ import com.decode.newsreporter.infrastructure.service.news_parser.parsing_strate
 public interface ParsingStrategyFactory {
 
     AbstractNewsStrategy getConcreteFactory(URL url) throws CantParseNewsException, WrongUrlProvided;
+
 }

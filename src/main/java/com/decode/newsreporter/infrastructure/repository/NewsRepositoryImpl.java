@@ -4,10 +4,8 @@ import com.decode.newsreporter.domain.entity.News;
 import com.decode.newsreporter.domain.repository.NewsRepository;
 import com.decode.newsreporter.infrastructure.entity.NewsORM;
 import com.decode.newsreporter.infrastructure.factory.NewsConvertFactory;
-import com.decode.newsreporter.infrastructure.factory.ORMNewsConvertFactory;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,39 +14,36 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     private final NewsRepositoryORM newsRepositoryORM;
     private final NewsConvertFactory newsConvertFactory;
-    private final ORMNewsConvertFactory ormNewsConvertFactory;
 
     public NewsRepositoryImpl(NewsRepositoryORM newsRepositoryORM,
-                              NewsConvertFactory newsConvertFactory,
-                              ORMNewsConvertFactory ormNewsConvertFactory
+                              NewsConvertFactory newsConvertFactory
                           ) {
         this.newsRepositoryORM = newsRepositoryORM;
         this.newsConvertFactory = newsConvertFactory;
-        this.ormNewsConvertFactory = ormNewsConvertFactory;
     }
 
     @Override
     public List<News> getAllNews() {
-        return newsConvertFactory.createNews(newsRepositoryORM.findAll());
+        return newsConvertFactory.convertNewsFromORM(newsRepositoryORM.findAll());
     }
 
     @Override
     public News getNewsById(Long id) {
         Optional<NewsORM> news = newsRepositoryORM.findById(id);
         NewsORM result = news.orElse(null);
-        return (result != null) ? newsConvertFactory.createNews(result) : null;
+        return (result != null) ? newsConvertFactory.convertNewsFromORM(result) : null;
     }
 
     @Override
     public List<News> getNewsById(List<Long> newsIds) {
         List<NewsORM> newsORMList = newsRepositoryORM.findAllById(newsIds);
-        return newsConvertFactory.createNews(newsORMList);
+        return newsConvertFactory.convertNewsFromORM(newsORMList);
     }
 
     @Override
     public News save(News news) {
-        NewsORM newsConverted = ormNewsConvertFactory.createORMNews(news);
+        NewsORM newsConverted = newsConvertFactory.convertNewsToORM(news);
         NewsORM savedItem = newsRepositoryORM.save(newsConverted);
-        return newsConvertFactory.createNews(savedItem);
+        return newsConvertFactory.convertNewsFromORM(savedItem);
     }
 }

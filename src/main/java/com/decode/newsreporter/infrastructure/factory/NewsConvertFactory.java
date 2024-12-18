@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class NewsConvertFactory {
 
-    public News createNews(NewsORM newsORM) {
+    public News convertNewsFromORM(NewsORM newsORM) {
         try {
             return new News(newsORM.getId(),
                     new URL(newsORM.getURL()),
@@ -24,7 +24,7 @@ public class NewsConvertFactory {
         }
     }
 
-    public List<News> createNews(List<NewsORM> newsORM) {
+    public List<News> convertNewsFromORM(List<NewsORM> newsORM) {
         List<News> newsList = new ArrayList<>();
         newsORM.forEach(newsORMitem -> {
             try {
@@ -39,5 +39,13 @@ public class NewsConvertFactory {
         });
 
         return newsList;
+    }
+
+    public NewsORM convertNewsToORM(News news) {
+        return new NewsORM(news.getId(),
+                news.getDate(),
+                news.getURL().getUrl(),
+                news.getNewsName().getName(),
+                news.getBody());
     }
 }
