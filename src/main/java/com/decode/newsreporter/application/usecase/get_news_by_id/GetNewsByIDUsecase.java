@@ -1,5 +1,4 @@
-/* Сценарий 2. Получение списка новостей. Система возвращает список (массив) ранее созданных сущностей с полями:
-- ID, дата, URL, название новости */
+/* Сценарий 4. Добавил получение по ID новости */
 package com.decode.newsreporter.application.usecase.get_news_by_id;
 import com.decode.newsreporter.domain.service.NewsService;
 import com.decode.newsreporter.infrastructure.controller.WrongNewsIdProvided;
