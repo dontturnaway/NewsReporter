@@ -6,7 +6,7 @@ import com.decode.newsreporter.application.usecase.get_news_by_id.GetNewsByIDUse
 import com.decode.newsreporter.application.usecase.get_news_report.GenerateNewsReportUsecase;
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsUsecase;
 import com.decode.newsreporter.domain.service.NewsService;
-import com.decode.newsreporter.application.service.report_generation.ReportGenerationService;
+import com.decode.newsreporter.application.report_generation.ReportGenerationService;
 import com.decode.newsreporter.infrastructure.factory.NewsFactoryImpl;
 import com.decode.newsreporter.infrastructure.service.NewsServiceImpl;
 import org.springframework.context.annotation.Bean;

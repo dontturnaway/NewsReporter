@@ -14,6 +14,12 @@ public class URL {
             + "{2,256}\\.[a-z]"
             + "{2,6}\\b([-a-zA-Z0-9@:%"
             + "._\\+~#?&//=]*)";
+    static Pattern pattern;
+
+    static {
+        pattern = Pattern.compile(VALID_URL_REGEX_PATTERN);
+    }
+
 
     public URL(String url) throws WrongUrlProvided {
         if (!assertValidUrl(url)) {
@@ -23,7 +29,6 @@ public class URL {
     }
 
     private boolean assertValidUrl(String url) {
-        Pattern pattern = Pattern.compile(VALID_URL_REGEX_PATTERN);
         Matcher matcher = pattern.matcher(url);
         return matcher.matches();
     }

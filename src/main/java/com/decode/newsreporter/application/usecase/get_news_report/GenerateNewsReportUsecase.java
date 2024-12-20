@@ -4,10 +4,10 @@
 package com.decode.newsreporter.application.usecase.get_news_report;
 
 import com.decode.newsreporter.domain.service.NewsService;
-import com.decode.newsreporter.application.service.report_generation.ReportGenerationService;
-import com.decode.newsreporter.application.service.report_generation.ReportLinkRequestDTO;
-import com.decode.newsreporter.application.service.report_generation.ReportLinkResponseDTO;
-import com.decode.newsreporter.application.service.report_generation.UnableToGenerateReportException;
+import com.decode.newsreporter.application.report_generation.ReportGenerationService;
+import com.decode.newsreporter.application.report_generation.ReportLinkRequestDTO;
+import com.decode.newsreporter.application.report_generation.ReportLinkResponseDTO;
+import com.decode.newsreporter.application.report_generation.UnableToGenerateReportException;
 import com.decode.newsreporter.infrastructure.controller.WrongNewsIdProvided;
 import com.decode.newsreporter.infrastructure.entity.NewsDTO;
 

@@ -4,13 +4,16 @@ import lombok.Value;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.util.regex.Pattern.matches;
-
 @Value
 public class NewsName {
 
     String name;
     static String VALID_NAME_REGEX_PATTERN="^.{4,}$";
+    static Pattern pattern;
+
+    static {
+        pattern = Pattern.compile(VALID_NAME_REGEX_PATTERN);
+    }
 
     public NewsName(String name) {
         if (!assertValidName(name)) {
@@ -20,7 +23,6 @@ public class NewsName {
     }
 
     private boolean assertValidName(String name) {
-        Pattern pattern = Pattern.compile(".{4,}$");
         Matcher matcher = pattern.matcher(name);
         return matcher.matches();
     }

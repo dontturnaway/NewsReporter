@@ -3,7 +3,7 @@ package com.decode.newsreporter.infrastructure.controller;
 import com.decode.newsreporter.application.gateway.CanGetRemoteDataFromURLException;
 import com.decode.newsreporter.infrastructure.service.news_parser.parsing_strategy.CantParseNewsException;
 import com.decode.newsreporter.infrastructure.service.WrongUrlProvided;
-import com.decode.newsreporter.application.service.report_generation.UnableToGenerateReportException;
+import com.decode.newsreporter.application.report_generation.UnableToGenerateReportException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

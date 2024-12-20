@@ -1,4 +1,4 @@
-package com.decode.newsreporter.application.service.report_generation;
+package com.decode.newsreporter.application.report_generation;
 
 import com.decode.newsreporter.infrastructure.entity.NewsDTO;
 
