@@ -5,10 +5,10 @@ import com.decode.newsreporter.application.usecase.get_all_news_list.GetAllNewsL
 import com.decode.newsreporter.application.usecase.get_news_by_id.GetNewsByIDUsecase;
 import com.decode.newsreporter.application.usecase.get_news_report.GenerateNewsReportUsecase;
 import com.decode.newsreporter.application.usecase.submit_news.SubmitNewsUsecase;
-import com.decode.newsreporter.domain.service.NewsService;
+import com.decode.newsreporter.domain.service.NewsRepository;
 import com.decode.newsreporter.application.report_generation.ReportGenerationService;
 import com.decode.newsreporter.infrastructure.factory.NewsFactoryImpl;
-import com.decode.newsreporter.infrastructure.service.NewsServiceImpl;
+import com.decode.newsreporter.infrastructure.repository.NewsRepositoryImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,27 +16,27 @@ import org.springframework.context.annotation.Configuration;
 public class Config {
 
     @Bean
-    public SubmitNewsUsecase getSubmitNewsUsecaseInstance(NewsFactoryImpl newsFactory, NewsService newsService, NewsGateway newsGateway, NewsParserService newsParserService) {
+    public SubmitNewsUsecase getSubmitNewsUsecaseInstance(NewsFactoryImpl newsFactory, NewsRepository newsRepository, NewsGateway newsGateway, NewsParserService newsParserService) {
         return new SubmitNewsUsecase(
                 newsFactory,
-                newsService,
+                newsRepository,
                 newsGateway,
                 newsParserService
         );
     }
 
     @Bean
-    public GenerateNewsReportUsecase getGenerateNewsReportUsecaseInstance(NewsServiceImpl newsService, ReportGenerationService reportGenerationService) {
+    public GenerateNewsReportUsecase getGenerateNewsReportUsecaseInstance(NewsRepositoryImpl newsService, ReportGenerationService reportGenerationService) {
         return new GenerateNewsReportUsecase(newsService, reportGenerationService);
     }
 
     @Bean
-    public GetAllNewsListUsecase getGetNewsListUsecaseInstance(NewsServiceImpl newsServiceImpl) {
+    public GetAllNewsListUsecase getGetNewsListUsecaseInstance(NewsRepositoryImpl newsServiceImpl) {
         return new GetAllNewsListUsecase(newsServiceImpl);
     }
 
     @Bean
-    public GetNewsByIDUsecase getNewsByIDUsecase(NewsServiceImpl newsServiceImpl) {
+    public GetNewsByIDUsecase getNewsByIDUsecase(NewsRepositoryImpl newsServiceImpl) {
         return new GetNewsByIDUsecase(newsServiceImpl);
     }
 

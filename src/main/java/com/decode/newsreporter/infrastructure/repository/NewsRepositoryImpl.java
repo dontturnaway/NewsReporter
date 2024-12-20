@@ -1,13 +1,11 @@
 package com.decode.newsreporter.infrastructure.repository;
 
-import com.decode.newsreporter.domain.entity.News;
-import com.decode.newsreporter.domain.repository.NewsRepository;
+import com.decode.newsreporter.domain.service.NewsRepository;
+import com.decode.newsreporter.domain.entity.NewsDTO;
 import com.decode.newsreporter.infrastructure.entity.NewsORM;
 import com.decode.newsreporter.infrastructure.factory.NewsConvertFactory;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class NewsRepositoryImpl implements NewsRepository {
@@ -23,27 +21,31 @@ public class NewsRepositoryImpl implements NewsRepository {
     }
 
     @Override
-    public List<News> getAllNews() {
-        return newsConvertFactory.convertNewsFromORM(newsRepositoryORM.findAll());
+    public List<NewsDTO> getAllNews() {
+        List<NewsORM> newsList = newsRepositoryORM.findAll();
+        return newsConvertFactory.convertNewsFromORM(newsList);
     }
 
     @Override
-    public News getNewsById(Long id) {
-        Optional<NewsORM> news = newsRepositoryORM.findById(id);
-        NewsORM result = news.orElse(null);
-        return (result != null) ? newsConvertFactory.convertNewsFromORM(result) : null;
+    public NewsDTO getNewsById(Long id) {
+        NewsORM newsOrm = newsRepositoryORM.findById(id).orElse(null);
+        if (newsOrm == null) {
+            return null;
+        }
+        return newsConvertFactory.convertNewsFromORM(newsOrm);
     }
 
     @Override
-    public List<News> getNewsById(List<Long> newsIds) {
+    public List<NewsDTO> getNewsById(List<Long> newsIds) {
         List<NewsORM> newsORMList = newsRepositoryORM.findAllById(newsIds);
         return newsConvertFactory.convertNewsFromORM(newsORMList);
     }
 
     @Override
-    public News save(News news) {
-        NewsORM newsConverted = newsConvertFactory.convertNewsToORM(news);
-        NewsORM savedItem = newsRepositoryORM.save(newsConverted);
-        return newsConvertFactory.convertNewsFromORM(savedItem);
+    public NewsDTO save(NewsDTO newsDTO) {
+        NewsORM newsORM = newsConvertFactory.convertNewsFromDTO(newsDTO);
+        NewsORM newsORMSaved = newsRepositoryORM.save(newsORM);
+
+        return newsConvertFactory.convertNewsFromORM(newsORMSaved);
     }
 }

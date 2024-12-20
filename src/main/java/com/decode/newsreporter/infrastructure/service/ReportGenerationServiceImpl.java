@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat;
 @Service
 public class ReportGenerationServiceImpl implements ReportGenerationService {
 
-    @Value("${app.base.url}")
     private final String APP_BASE_URL;
     private final TemplateEngine templateEngine;
     private static final String REPORT_DIRECTORY_PATH = "files/reports/";
