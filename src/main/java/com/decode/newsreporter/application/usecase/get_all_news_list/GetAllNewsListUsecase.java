@@ -1,7 +1,7 @@
 /* Сценарий 2. Получение списка новостей. Система возвращает список (массив) ранее созданных сущностей с полями:
 - ID, дата, URL, название новости */
 package com.decode.newsreporter.application.usecase.get_all_news_list;
-import com.decode.newsreporter.domain.service.NewsRepository;
+import com.decode.newsreporter.domain.repository.NewsRepository;
 
 public class GetAllNewsListUsecase {
 

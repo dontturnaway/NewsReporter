@@ -1,6 +1,6 @@
 package com.decode.newsreporter.infrastructure.service;
 
-import com.decode.newsreporter.application.report_generation.ReportGenerationService;
+import com.decode.newsreporter.application.report_generation.ReportGeneration;
 import com.decode.newsreporter.application.report_generation.ReportLinkRequestDTO;
 import com.decode.newsreporter.application.report_generation.ReportLinkResponseDTO;
 import com.decode.newsreporter.application.report_generation.UnableToGenerateReportException;
@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 
 @Slf4j
 @Service
-public class ReportGenerationServiceImpl implements ReportGenerationService {
+public class ReportGenerationImpl implements ReportGeneration {
 
     private final String APP_BASE_URL;
     private final TemplateEngine templateEngine;
@@ -26,7 +26,7 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
     private static final String REPORT_URL_PATH = "/reports/";
 
 
-    public ReportGenerationServiceImpl(@Value("${app.base.url}") String baseUrl, TemplateEngine templateEngine) {
+    public ReportGenerationImpl(@Value("${app.base.url}") String baseUrl, TemplateEngine templateEngine) {
         APP_BASE_URL = baseUrl;
         this.templateEngine = templateEngine;
     }

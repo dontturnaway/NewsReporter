@@ -2,17 +2,17 @@ package com.decode.newsreporter.infrastructure.service;
 import com.decode.newsreporter.domain.factory.ParsingStrategyFactory;
 import com.decode.newsreporter.application.parser.NewsParserRequestDTO;
 import com.decode.newsreporter.application.parser.NewsParserResponseDTO;
-import com.decode.newsreporter.application.parser.NewsParserService;
+import com.decode.newsreporter.application.parser.NewsParser;
 import com.decode.newsreporter.domain.value_object.URL;
 import com.decode.newsreporter.infrastructure.service.news_parser.parsing_strategy.*;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NewsParserServiceImpl implements NewsParserService {
+public class NewsParserImpl implements NewsParser {
 
     private final ParsingStrategyFactory factory;
 
-    public NewsParserServiceImpl(ParsingStrategyFactory factory) {
+    public NewsParserImpl(ParsingStrategyFactory factory) {
         this.factory = factory;
     }
 

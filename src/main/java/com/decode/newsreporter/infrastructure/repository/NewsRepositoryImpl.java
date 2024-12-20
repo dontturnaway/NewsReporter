@@ -1,6 +1,6 @@
 package com.decode.newsreporter.infrastructure.repository;
 
-import com.decode.newsreporter.domain.service.NewsRepository;
+import com.decode.newsreporter.domain.repository.NewsRepository;
 import com.decode.newsreporter.domain.entity.NewsDTO;
 import com.decode.newsreporter.infrastructure.entity.NewsORM;
 import com.decode.newsreporter.infrastructure.factory.NewsConvertFactory;

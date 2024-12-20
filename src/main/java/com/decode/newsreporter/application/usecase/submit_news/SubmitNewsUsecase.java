@@ -11,9 +11,9 @@ import com.decode.newsreporter.application.gateway.NewsGatewayRequestDTO;
 import com.decode.newsreporter.application.gateway.NewsGatewayResponseDTO;
 import com.decode.newsreporter.domain.entity.News;
 import com.decode.newsreporter.domain.factory.NewsFactory;
-import com.decode.newsreporter.application.parser.NewsParserService;
+import com.decode.newsreporter.application.parser.NewsParser;
 import com.decode.newsreporter.application.parser.NewsParserRequestDTO;
-import com.decode.newsreporter.domain.service.NewsRepository;
+import com.decode.newsreporter.domain.repository.NewsRepository;
 import com.decode.newsreporter.application.parser.NewsParserResponseDTO;
 import com.decode.newsreporter.infrastructure.service.news_parser.parsing_strategy.CantParseNewsException;
 import com.decode.newsreporter.infrastructure.service.WrongUrlProvided;
@@ -26,17 +26,17 @@ public class SubmitNewsUsecase {
     private final NewsFactory newsFactory;
     private final NewsRepository newsRepository;
     private final NewsGateway newsGateway;
-    private final NewsParserService newsParserService;
+    private final NewsParser newsParser;
 
     public SubmitNewsUsecase(NewsFactory newsFactory,
                              NewsRepository newsRepository,
                              NewsGateway newsGateway,
-                             NewsParserService newsParserService
+                             NewsParser newsParser
     ) {
         this.newsFactory = newsFactory;
         this.newsRepository = newsRepository;
         this.newsGateway = newsGateway;
-        this.newsParserService = newsParserService;
+        this.newsParser = newsParser;
     }
 
     public SubmitNewsResponseDTO submitNews(SubmitNewsRequestDTO submitNewsRequestDTO) throws
@@ -48,7 +48,7 @@ public class SubmitNewsUsecase {
             NewsGatewayRequestDTO newsGatewayRequestDTO = new NewsGatewayRequestDTO(url);
             NewsGatewayResponseDTO newsBodyResponse = newsGateway.getNewsFromURL(newsGatewayRequestDTO);
             NewsParserRequestDTO newsParserRequestDTO = new NewsParserRequestDTO(url.getUrl(), newsBodyResponse.response());
-            NewsParserResponseDTO parsedNewsName = newsParserService.parseNews(newsParserRequestDTO);
+            NewsParserResponseDTO parsedNewsName = newsParser.parseNews(newsParserRequestDTO);
 
             NewsName newsName = new NewsName(parsedNewsName.newsName());
             News news = new News(null, url, newsName, newsBodyResponse.response());

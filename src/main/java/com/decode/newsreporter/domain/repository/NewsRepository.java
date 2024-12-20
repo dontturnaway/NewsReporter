@@ -1,4 +1,4 @@
-package com.decode.newsreporter.domain.service;
+package com.decode.newsreporter.domain.repository;
 
 import com.decode.newsreporter.infrastructure.controller.WrongNewsIdProvided;
 import com.decode.newsreporter.domain.entity.NewsDTO;

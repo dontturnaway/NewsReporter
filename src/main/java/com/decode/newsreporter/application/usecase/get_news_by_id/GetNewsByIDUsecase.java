@@ -1,7 +1,7 @@
 /* Сценарий 4. Добавил получение по ID новости */
 
 package com.decode.newsreporter.application.usecase.get_news_by_id;
-import com.decode.newsreporter.domain.service.NewsRepository;
+import com.decode.newsreporter.domain.repository.NewsRepository;
 import com.decode.newsreporter.infrastructure.controller.WrongNewsIdProvided;
 
 public class GetNewsByIDUsecase {
