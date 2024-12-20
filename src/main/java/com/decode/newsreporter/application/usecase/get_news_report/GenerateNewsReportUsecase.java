@@ -23,7 +23,7 @@ public class GenerateNewsReportUsecase {
     }
 
     public GetNewsReportResponse getReport(GetNewsReportRequest request) throws WrongNewsIdProvided, UnableToGenerateReportException {
-        List<NewsDTO> newsList = newsService.getNewsById(request.newsListIds());
+        List<NewsDTO> newsList = newsService.getNewsById(request.newsListIds()); //change to repo
         ReportLinkRequestDTO reportLinkRequestDTO = new ReportLinkRequestDTO(newsList);
         ReportLinkResponseDTO reportLinkResponseDTO = reportGenerationService.getGeneratedReportLink(reportLinkRequestDTO);
 

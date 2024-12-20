@@ -1,8 +1,8 @@
 package com.decode.newsreporter.infrastructure.service;
 import com.decode.newsreporter.domain.factory.ParsingStrategyFactory;
-import com.decode.newsreporter.application.service.application_parser.NewsParserRequestDTO;
-import com.decode.newsreporter.application.service.application_parser.NewsParserResponseDTO;
-import com.decode.newsreporter.application.service.application_parser.NewsParserService;
+import com.decode.newsreporter.application.parser.NewsParserRequestDTO;
+import com.decode.newsreporter.application.parser.NewsParserResponseDTO;
+import com.decode.newsreporter.application.parser.NewsParserService;
 import com.decode.newsreporter.domain.value_object.URL;
 import com.decode.newsreporter.infrastructure.service.news_parser.parsing_strategy.*;
 import org.springframework.stereotype.Service;

@@ -73,7 +73,7 @@ public class ReportGenerationServiceImpl implements ReportGenerationService {
     }
 
     private String generateReportName() {
-        Format formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        Format formatter = new SimpleDateFormat("yyyyMMdd_HHmmss"); //USE UUID
         String currentTime = formatter.format(new java.util.Date());
         return "newsreport_" + currentTime + ".html";
     }

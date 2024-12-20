@@ -1,4 +1,4 @@
-package com.decode.newsreporter.application.service.application_parser;
+package com.decode.newsreporter.application.parser;
 import com.decode.newsreporter.infrastructure.service.news_parser.parsing_strategy.CantParseNewsException;
 import com.decode.newsreporter.infrastructure.service.WrongUrlProvided;
 

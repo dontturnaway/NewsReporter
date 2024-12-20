@@ -14,19 +14,19 @@ import com.decode.newsreporter.infrastructure.service.news_parser.parsing_strate
 import com.decode.newsreporter.infrastructure.service.WrongUrlProvided;
 import com.decode.newsreporter.application.service.report_generation.UnableToGenerateReportException;
 import com.decode.newsreporter.infrastructure.entity.NewsDTO;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@RequestMapping("/api/v1/news")
 public class NewsController {
 
     private final SubmitNewsUsecase submitNewsUsecase;
     private final GenerateNewsReportUsecase generateNewsReportUsecase;
     private final GetAllNewsListUsecase getAllNewsListUsecase;
     private final GetNewsByIDUsecase getNewsByIDUsecase;
-
-    private static final String BASE_NEWS_URL="/api/v1/news";
 
     public NewsController(SubmitNewsUsecase submitNewsUsecase,
                           GenerateNewsReportUsecase generateNewsReportUsecase,
@@ -39,12 +39,12 @@ public class NewsController {
         this.getNewsByIDUsecase = getNewsByIDUsecase;
     }
 
-    @GetMapping(value=BASE_NEWS_URL, produces = APPLICATION_JSON_VALUE)
+    @GetMapping()
     public List<NewsDTO> getAllNews() {
         return getAllNewsListUsecase.getNewsList().newsDTOList();
     }
 
-    @GetMapping(value=BASE_NEWS_URL + "/{newsId}", produces = APPLICATION_JSON_VALUE)
+    @GetMapping("/{newsId}")
     public NewsDTO getNewsById(GetNewsByIDRequest getNewsByIDRequest) throws WrongNewsIdProvided {
         if (getNewsByIDRequest == null || getNewsByIDRequest.newsId() == null) {
             throw new WrongNewsIdProvided();
@@ -52,8 +52,8 @@ public class NewsController {
         return getNewsByIDUsecase.getNewsList(getNewsByIDRequest).newsDTO();
     }
 
-    @PostMapping(value = BASE_NEWS_URL, consumes = APPLICATION_JSON_VALUE)
-    public SubmitNewsResponseDTO postNews(@RequestBody SubmitNewsRequestDTO submitNewsRequestDTO) throws
+    @PostMapping()
+    public SubmitNewsResponseDTO postNews(@RequestBody @Valid @NotNull SubmitNewsRequestDTO submitNewsRequestDTO) throws
                                                                         CantParseNewsException,
                                                                         CanGetRemoteDataFromURLException,
                                                                         WrongUrlProvided {
@@ -63,8 +63,8 @@ public class NewsController {
         return submitNewsUsecase.submitNews(submitNewsRequestDTO);
     }
 
-    @PostMapping(value = BASE_NEWS_URL + "/report", consumes = APPLICATION_JSON_VALUE)
-    public GetNewsReportResponse generateNewsReport(@RequestBody GetNewsReportRequest getNewsReportRequest) throws
+    @PostMapping( "/report")
+    public GetNewsReportResponse generateNewsReport(@RequestBody @Valid @NotNull GetNewsReportRequest getNewsReportRequest) throws
                                             WrongNewsIdProvided,
                                             UnableToGenerateReportException {
 
